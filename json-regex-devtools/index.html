@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+<title>JSON 格式化 + 正則測試 | Free JSON Formatter & Regex Tester</title>
+<meta name="description" content="免費線上開發者工具：JSON 格式化/壓縮/驗證 + 正則表達式測試（即時 highlight 比對結果）。所有運算都在瀏覽器本機，不上傳。Free online JSON formatter/validator & regex tester — runs locally in your browser.">
+<meta property="og:title" content="JSON 格式化 + 正則測試 | Dev Tools">
+<meta property="og:description" content="JSON 格式化/驗證 + 正則測試，本機運算不上傳。">
+<meta property="og:image" content="https://slashmantools.us/json-regex-devtools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="SlashMan Tools"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://slashmantools.us/json-regex-devtools/og.png">
+<meta name="google-site-verification" content="jV8Xt5l-peRpLknp7xKYpvN8N5tCAkMctq0D-3RVyzk">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7217603696203672" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY95FHB8JG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MY95FHB8JG');</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JSON Formatter & Regex Tester","url":"https://slashmantools.us/json-regex-devtools/","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free online JSON formatter/validator and regex tester that runs locally in your browser.","inLanguage":["zh-TW","en"]}</script>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e8e8f0;min-height:100vh;padding:28px 16px 56px;line-height:1.5}
+  .wrap{max-width:720px;margin:0 auto}
+  .topbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .topbar h1{font-size:18px;font-weight:700;flex:1}
+  .lang-btn{padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#c7c7f0;font-size:12px;font-weight:700;cursor:pointer}
+  .sub{color:#7878a0;font-size:13px;margin-bottom:14px}
+  .tabs{display:flex;gap:8px;margin-bottom:14px}
+  .tab{flex:1;padding:9px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;font-size:13.5px;font-weight:700;cursor:pointer}
+  .tab.on{background:rgba(99,102,241,.25);color:#c7c7f0;border-color:rgba(99,102,241,.4)}
+  .panel{display:none}.panel.on{display:block}
+  textarea{width:100%;background:#101018;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#e8e8f0;padding:12px;font-size:13px;font-family:ui-monospace,Menlo,monospace;resize:vertical;min-height:130px}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .b{padding:8px 16px;border-radius:9px;border:1px solid rgba(99,102,241,.4);background:rgba(99,102,241,.15);color:#c7c7f0;font-size:13px;font-weight:700;cursor:pointer}
+  .b.ghost{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.05)}
+  .msg{font-size:12.5px;padding:8px 10px;border-radius:8px;margin:8px 0;display:none}
+  .msg.ok{display:block;background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+  .msg.err{display:block;background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+  .row{display:flex;gap:8px;flex-wrap:wrap}.row>div{flex:1;min-width:120px}
+  input{width:100%;background:#101018;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e8e8f0;padding:9px;font-size:13px;font-family:ui-monospace,monospace}
+  label{font-size:11px;color:#8888b0;display:block;margin-bottom:4px}
+  .hl{background:#101018;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:13px;font-family:ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;margin-top:10px;min-height:60px}
+  mark{background:rgba(99,102,241,.45);color:#fff;border-radius:3px;padding:0 1px}
+  .cnt{font-size:12px;color:#8888b0;margin-top:8px}
+  .ad-slot{width:100%;min-height:90px;background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.07);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#303048;margin:16px 0}
+  .aff{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;text-decoration:none;color:inherit}
+  .aff .i{font-size:22px}.aff b{font-size:13px}.aff span{font-size:11px;color:#7878a0;display:block}
+  .note{font-size:10.5px;color:#50506e;margin-top:8px;line-height:1.6}
+  .footer{margin-top:20px;text-align:center;font-size:11px;color:#444466;line-height:1.8}
+  .footer a{color:#6868a0;text-decoration:none}.footer a:hover{text-decoration:underline}
+
+  .share-bar{display:flex;align-items:center;gap:6px;margin:10px 0 16px;flex-wrap:wrap}
+  .share-bar .lbl{font-size:11px;color:#55557a;font-weight:600;margin-right:4px;letter-spacing:.5px}
+  .share-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
+  .share-btn:hover{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.35);color:#c7c7f0}
+  .share-btn.copied{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.35);color:#10b981}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","mainEntity":[{"acceptedAnswer":{"text":"不會，JSON 格式化與正則測試全部在你瀏覽器本機執行。No; JSON formatting and regex testing run entirely in your browser.","@type":"Answer"},"name":"我的資料會被上傳嗎？ / Is my data uploaded?","@type":"Question"},{"acceptedAnswer":{"text":"支援 g/i/m/s/u 等標準 JavaScript 正則旗標。Supports standard JS flags like g, i, m, s, u.","@type":"Answer"},"name":"支援哪些正則 flags？ / Which regex flags?","@type":"Question"},{"acceptedAnswer":{"text":"免費。Free.","@type":"Answer"},"name":"免費嗎？ / Is it free?","@type":"Question"}],"@type":"FAQPage"}</script>
+<link rel="canonical" href="https://slashmantools.us/json-regex-devtools/">
+<meta property="og:url" content="https://slashmantools.us/json-regex-devtools/">
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span style="font-size:24px">🛠️</span><h1 data-i18n="title">JSON 格式化 + 正則測試</h1><select class="lang-btn" id="langSel" onchange="setLang(this.value)" aria-label="Language" style="cursor:pointer"><option value="en">EN</option><option value="zh">中</option><option value="es">ES</option><option value="hi">हि</option><option value="ar">ع</option></select></div>
+  <div class="sub" data-i18n="sub">JSON 格式化／壓縮／驗證 + 正則測試。全部在你瀏覽器本機運算，不會上傳資料。</div>
+  <div class="share-bar">
+    <span class="lbl">📤 分享</span>
+    <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fslashmantools.us%2Fjson-regex-devtools%2F" target="_blank" rel="noopener" onclick="try{gtag('event','share_facebook')}catch(e){}">📘 FB</a>
+    <a class="share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fslashmantools.us%2Fjson-regex-devtools%2F" target="_blank" rel="noopener" onclick="try{gtag('event','share_twitter')}catch(e){}">🐦 X</a>
+    <a class="share-btn" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fslashmantools.us%2Fjson-regex-devtools%2F" target="_blank" rel="noopener" onclick="try{gtag('event','share_line')}catch(e){}">💬 Line</a>
+    <button class="share-btn" onclick="shareLink(this,'https://slashmantools.us/json-regex-devtools/')">🔗 複製連結</button>
+  </div>
+  <script>
+    function shareLink(el,url){navigator.clipboard.writeText(url).then(function(){el.textContent='✓ 已複製';el.classList.add('copied');setTimeout(function(){el.textContent='🔗 複製連結';el.classList.remove('copied');},2000);try{gtag('event','share_copylink')}catch(e){}}).catch(function(){})}
+  </script>
+  <div class="tabs"><button class="tab on" data-t="json" data-i18n="t_json">JSON 格式化</button><button class="tab" data-t="re" data-i18n="t_re">正則測試</button></div>
+
+  <div class="panel on" id="p-json">
+    <textarea id="jin" placeholder='{"hello":"world","n":[1,2,3]}'></textarea>
+    <div class="btns">
+      <button class="b" onclick="jfmt(2)" data-i18n="format">格式化</button>
+      <button class="b ghost" onclick="jfmt(0)" data-i18n="minify">壓縮</button>
+      <button class="b ghost" onclick="jcopy()" data-i18n="copy">複製結果</button>
+    </div>
+    <div class="msg" id="jmsg"></div>
+    <textarea id="jout" readonly placeholder="輸出..."></textarea>
+  </div>
+
+  <div class="panel" id="p-re">
+    <div class="row">
+      <div style="flex:3"><label data-i18n="pattern">Pattern</label><input id="rpat" placeholder="\\b\\w+@\\w+\\.\\w+\\b" value=""></div>
+      <div style="flex:1"><label data-i18n="flags">Flags</label><input id="rflags" value="g" placeholder="gim"></div>
+    </div>
+    <label style="margin-top:10px" data-i18n="teststr">測試字串</label>
+    <textarea id="rtest" placeholder="貼上要比對的文字..."></textarea>
+    <div class="msg" id="rmsg"></div>
+    <div class="cnt" id="rcnt"></div>
+    <div class="hl" id="rhl"></div>
+  </div>
+
+  <ins class="adsbygoogle ad-slot" style="display:block" data-ad-client="ca-pub-7217603696203672" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <a class="aff" href="https://www.amazon.com/dp/B0C3HCD34R?tag=ytstories0413-20" target="_blank" rel="nofollow sponsored noopener">
+    <div class="i">🎧</div><div><b data-i18n="hp_t">Soundcore Q20i 降噪耳機</b><span data-i18n="hp_d">寫 code 專注神器</span></div>
+  </a>
+  <div class="note" data-i18n="aff_disc">含 Amazon 聯盟連結，透過連結購買我們可能獲得回饋，不影響你的價格。As an Amazon Associate we earn from qualifying purchases.</div>
+<div style="max-width:680px;margin:18px auto 0"><div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#44446a;text-transform:uppercase;margin-bottom:8px">FAQ · 常見問題</div><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">我的資料會被上傳嗎？ / Is my data uploaded?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">不會，JSON 格式化與正則測試全部在你瀏覽器本機執行。No; JSON formatting and regex testing run entirely in your browser.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">支援哪些正則 flags？ / Which regex flags?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">支援 g/i/m/s/u 等標準 JavaScript 正則旗標。Supports standard JS flags like g, i, m, s, u.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">免費嗎？ / Is it free?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">免費。Free.</p></details></div>
+<div style="max-width:680px;margin:18px auto 0;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#44446a;text-transform:uppercase;margin-bottom:8px">更多免費工具 · More tools</div><div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center"><a href="https://slashmantools.us/llm-calc/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🖥️ LLM VRAM</a><a href="https://slashmantools.us/token-cost-calculator/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🧮 Token 成本</a><a href="https://slashmantools.us/ai-image-size-calculator/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🖼️ 出圖尺寸</a><a href="https://slashmantools.us/ai-prompt-library/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">📝 Prompt 庫</a><a href="https://slashmantools.us/pomodoro-focus-timer/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🍅 番茄鐘</a><a href="https://slashmantools.us/json-regex-devtools/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🛠️ JSON·Regex</a></div></div>
+<div id="vc" style="text-align:center;font-size:11px;color:#55557a;margin-top:16px;opacity:.85"></div><script>(function(){function rv(){var e=document.getElementById("vc");if(!e||!e.dataset.n)return;var en=(localStorage.getItem("site_lang")==="en");e.textContent="\u{1F441} "+Number(e.dataset.n).toLocaleString()+(en?" views":" 次瀏覽");}fetch("https://abacus.jasoncameron.dev/hit/sm413-devtools/views").then(function(r){return r.json()}).then(function(d){var e=document.getElementById("vc");if(e){e.dataset.n=d.value;rv();}}).catch(function(){});var lb=document.getElementById("langBtn");if(lb)lb.addEventListener("click",function(){setTimeout(rv,0);});})();</script>
+    
+    
+  <!-- GUIDE START -->
+  <section class="guide" style="max-width:560px;margin:22px auto;text-align:left;line-height:1.7;color:#9a9ac0;font-size:13.5px">
+    <h2 style="font-size:16px;color:#e8e8f0;margin:16px 0 8px">About these free JSON & Regex tools</h2>
+    <p>Two everyday developer tasks in one page: format and validate JSON, and test regular expressions against sample text with live highlighting. Everything runs in your browser, so even sensitive payloads stay on your machine.</p>
+    <h3 style="font-size:13.5px;color:#c7c7f0;margin:14px 0 6px">How to use</h3>
+    <ol style="padding-left:20px;margin:0"><li>Paste JSON to pretty-print and validate it — syntax errors are pinpointed.</li><li>Switch to the regex tester and enter your pattern and flags.</li><li>Type or paste sample text to see matches highlighted in real time.</li></ol>
+    <h3 style="font-size:13.5px;color:#c7c7f0;margin:14px 0 6px">Why use it</h3>
+    <p>Quickly spotting a misplaced comma in JSON or confirming a pattern before shipping saves real debugging time. Doing it locally means you can safely test data you would never paste into an unknown online service.</p>
+    <h3 style="font-size:13.5px;color:#c7c7f0;margin:14px 0 6px">FAQ</h3>
+    <details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0"><summary style="cursor:pointer;font-weight:600;font-size:13px;color:#c7c7f0">Is my JSON or test data uploaded?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">No — formatting and matching run entirely in your browser.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0"><summary style="cursor:pointer;font-weight:600;font-size:13px;color:#c7c7f0">Which regex flavor is used?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">JavaScript's regular-expression engine, matching what runs in browsers and Node.js.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0"><summary style="cursor:pointer;font-weight:600;font-size:13px;color:#c7c7f0">Can it minify JSON too?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">Yes — it can both pretty-print and compact JSON.</p></details>
+  </section>
+  <!-- GUIDE END -->
+  <!-- MONETIZE START -->
+  <div class="reco-widget" data-cat="dev"></div>
+  <div class="more"><a href="https://ko-fi.com/ytstories0413" target="_blank" rel="noopener" onclick="try{gtag('event','kofi_click')}catch(e){}">☕ 請我喝咖啡 Ko-fi</a></div>
+  <script src="https://slashmantools.us/reco-widget.js" defer></script>
+  <!-- MONETIZE END --><div class="footer">
+    <a href="https://slashmantools.us/" data-i18n="home">← 回 AI工具人首頁</a><br>
+    <a href="https://slashmantools.us/terms.html" data-i18n="terms">服務說明</a> · <a href="https://slashmantools.us/privacy.html" data-i18n="privacy">隱私權政策</a>
+  </div>
+
+  <!-- CROSS-LINK START -->
+  <div class="cross-links" style="max-width:720px;margin:24px auto 0;text-align:center">
+    <div style="font-size:13px;font-weight:700;color:#c7c7f0;margin-bottom:4px">🔗 你可能也會喜歡</div>
+    <div style="font-size:11px;color:#7878a0;margin-bottom:12px">More Tools</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;text-align:left">
+      <a href="https://slashmantools.us/dev-tools/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#c7c7f0">開發者工具 | Dev Tools</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">Base64/URL/JWT/UUID/Hash，本機運算</div>
+      </a>
+      <a href="https://slashmantools.us/ai-prompt-library/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#c7c7f0">AI Prompt 範本庫 | Prompt Library</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">高品質提示詞範本，一鍵複製</div>
+      </a>
+      <a href="https://slashmantools.us/token-cost-calculator/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#c7c7f0">Token 成本計算機 | Token Cost</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">估算 LLM API 費用，比較模型</div>
+      </a>
+    </div>
+  </div>
+  <!-- CROSS-LINK END -->
+</div>
+<script>
+  const $=id=>document.getElementById(id);
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on')); b.classList.add('on'); document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on')); $('p-'+(b.dataset.t==='json'?'json':'re')).classList.add('on'); }));
+  // JSON
+  window.jfmt=(ind)=>{ const m=$("jmsg"); try{ const o=JSON.parse($("jin").value); $("jout").value=JSON.stringify(o,null,ind); m.className='msg ok'; m.textContent=I18N.valid[LANG==='en'?1:0]; }catch(e){ m.className='msg err'; m.textContent=(LANG==='en'?'Invalid JSON: ':'JSON 無效：')+e.message; } };
+  window.jcopy=()=>{ navigator.clipboard.writeText($("jout").value); };
+  // Regex
+  function reRun(){
+    const pat=$("rpat").value, fl=$("rflags").value, str=$("rtest").value, m=$("rmsg");
+    $("rhl").innerHTML=''; $("rcnt").textContent='';
+    if(!pat){ m.className='msg'; return; }
+    let re; try{ re=new RegExp(pat, fl.includes('g')?fl:fl+'g'); m.className='msg'; }catch(e){ m.className='msg err'; m.textContent=(LANG==='en'?'Invalid regex: ':'正則錯誤：')+e.message; return; }
+    let cnt=0, html='', last=0, mm;
+    const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    re.lastIndex=0;
+    while((mm=re.exec(str))!==null){ cnt++; html+=esc(str.slice(last,mm.index))+'<mark>'+esc(mm[0])+'</mark>'; last=mm.index+mm[0].length; if(mm[0]===''){ re.lastIndex++; } if(cnt>5000) break; }
+    html+=esc(str.slice(last));
+    $("rhl").innerHTML=html||'<span style="color:#555">—</span>';
+    $("rcnt").textContent=(LANG==='en'?`${cnt} match(es)`:`找到 ${cnt} 個比對`);
+  }
+  ["rpat","rflags","rtest"].forEach(id=>$(id).addEventListener('input',reRun));
+
+  const I18N={"title": {"en": "JSON Formatter + Regex Tester", "zh": "JSON 格式化 + 正則測試", "es": "Formateador JSON + Probador de expresiones regulares", "hi": "JSON फ़ॉर्मेटर + रेगेक्स परीक्षक", "ar": "تنسيق JSON + اختبار Regex"}, "sub": {"en": "Format/validate JSON + test regex. Everything runs locally in your browser — nothing is uploaded.", "zh": "JSON 格式化／壓縮／驗證 + 正則測試。全部在你瀏覽器本機運算，不會上傳資料。", "es": "Formatear/validar JSON + expresión regular de prueba. Todo se ejecuta localmente en su navegador: no se carga nada.", "hi": "JSON + परीक्षण रेगेक्स को प्रारूपित/मान्य करें। आपके ब्राउज़र में सब कुछ स्थानीय रूप से चलता है - कुछ भी अपलोड नहीं किया गया है।", "ar": "تنسيق/التحقق من صحة JSON + اختبار التعبير العادي. يتم تشغيل كل شيء محليًا في متصفحك، ولا يتم تحميل أي شيء."}, "t_json": {"en": "JSON", "zh": "JSON 格式化", "es": "JSON", "hi": "JSON", "ar": "JSON"}, "t_re": {"en": "Regex", "zh": "正則測試", "es": "expresión regular", "hi": "regex", "ar": "التعبير العادي"}, "format": {"en": "Format", "zh": "格式化", "es": "Formato", "hi": "प्रारूप", "ar": "شكل"}, "minify": {"en": "Minify", "zh": "壓縮", "es": "Minimizar", "hi": "छोटा करना", "ar": "تصغير"}, "copy": {"en": "Copy", "zh": "複製結果", "es": "Copiar", "hi": "प्रतिलिपि", "ar": "ينسخ"}, "valid": {"en": "✓ Valid JSON", "zh": "✓ JSON 有效", "es": "✓ JSON válido", "hi": "✓ मान्य JSON", "ar": "✓ JSON صالح"}, "pattern": {"en": "Pattern", "zh": "Pattern", "es": "Patrón", "hi": "नमूना", "ar": "نمط"}, "flags": {"en": "Flags", "zh": "Flags", "es": "Banderas", "hi": "झंडे", "ar": "أعلام"}, "teststr": {"en": "Test string", "zh": "測試字串", "es": "Cadena de prueba", "hi": "परीक्षण स्ट्रिंग", "ar": "سلسلة اختبار"}, "hp_t": {"en": "Soundcore Q20i ANC Headphones", "zh": "Soundcore Q20i 降噪耳機", "es": "Auriculares Soundcore Q20i ANC", "hi": "साउंडकोर Q20i ANC हेडफ़ोन", "ar": "سماعات ساوندكور Q20i ANC"}, "hp_d": {"en": "Focus gear for coding", "zh": "寫 code 專注神器", "es": "Engranaje de enfoque para codificación", "hi": "कोडिंग के लिए फोकस गियर", "ar": "معدات التركيز للترميز"}, "aff_disc": {"en": "Contains Amazon affiliate links — at no extra cost to you. As an Amazon Associate we earn from qualifying purchases.", "zh": "含 Amazon 聯盟連結，透過連結購買我們可能獲得回饋，不影響你的價格。As an Amazon Associate we earn from qualifying purchases.", "es": "Contiene enlaces de afiliados de Amazon, sin costo adicional para usted. Como asociado de Amazon, ganamos con compras que califican.", "hi": "इसमें अमेज़ॅन सहबद्ध लिंक शामिल हैं - आपके लिए कोई अतिरिक्त लागत नहीं। अमेज़ॅन एसोसिएट के रूप में हम योग्य खरीदारी से कमाते हैं।", "ar": "يحتوي على روابط تابعة لأمازون - دون أي تكلفة إضافية عليك. باعتبارنا أحد شركاء Amazon، فإننا نكسب المال من عمليات الشراء المؤهلة."}, "home": {"en": "← Back to AI Toolkit home", "zh": "← 回 AI工具人首頁", "es": "← Volver a la página de inicio del kit de herramientas de IA", "hi": "← AI टूलकिट होम पर वापस जाएं", "ar": "← العودة إلى الصفحة الرئيسية لمجموعة أدوات الذكاء الاصطناعي"}, "terms": {"en": "Terms", "zh": "服務說明", "es": "Términos", "hi": "शर्तें", "ar": "شروط"}, "privacy": {"en": "Privacy", "zh": "隱私權政策", "es": "Privacidad", "hi": "गोपनीयता", "ar": "خصوصية"}};
+  const _RTL=["ar"];let LANG=localStorage.getItem("site_lang");if(!(I18N.title&&I18N.title[LANG]))LANG=(navigator.language||"en").slice(0,2);if(!(I18N.title&&I18N.title[LANG]))LANG="en";function setLang(l){if(!(I18N.title&&I18N.title[l]))l="en";LANG=l;document.querySelectorAll("[data-i18n]").forEach(function(el){var t=I18N[el.getAttribute("data-i18n")];if(t&&t[l]!=null)el.textContent=t[l];});document.documentElement.lang=l==="zh"?"zh-Hant":l;document.documentElement.dir=_RTL.indexOf(l)>-1?"rtl":"ltr";var s=document.getElementById("langSel");if(s)s.value=l;try{localStorage.setItem("site_lang",l)}catch(e){}}function toggleLang(){}window.toggleLang=toggleLang;window.setLang=setLang;
+  setLang(LANG);
+  document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();var tb=document.querySelector('.tab.on');if(tb&&tb.dataset.t==='json')jfmt(2);}});
+  document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a');if(!a||!a.href||typeof gtag!=='function')return;var u=a.href;if(u.indexOf('amazon.')>-1)gtag('event','affiliate_click',{link_url:u});else if(u.indexOf('ko-fi.com')>-1)gtag('event','kofi_click',{link_url:u});else if(u.indexOf('youtu')>-1)gtag('event','youtube_click',{link_url:u});else if(u.indexOf('slashmantools.us')>-1)gtag('event','internal_click',{link_url:u});});
+  try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
+</script>
+  <script src="https://slashmantools.us/kofi-widget.js" defer></script>
+<!-- cfo-cta -->
+<div style="max-width:640px;margin:40px auto 24px;padding:16px 8px;border-top:1px solid rgba(120,130,150,.25);text-align:center;font-family:system-ui,-apple-system,sans-serif;font-size:14px;">
+  <div style="opacity:.6;margin-bottom:8px;">More from slashman413</div>
+  <a href="https://slashmaster6.gumroad.com/l/kuvajr?utm_source=tools&utm_medium=web&utm_campaign=json-regex-devtools" target="_blank" rel="noopener" style="display:inline-block;margin:4px;padding:8px 14px;border-radius:8px;background:#16a34a;color:#fff;text-decoration:none;font-weight:600;">🛠 SaaS Starter</a>
+  <a href="https://slashman413.github.io/twse-backtests/?utm_source=tools&utm_medium=web&utm_campaign=json-regex-devtools" target="_blank" rel="noopener" style="display:inline-block;margin:4px;padding:8px 14px;border-radius:8px;background:#2563eb;color:#fff;text-decoration:none;font-weight:600;">📈 台股量化訊號</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How much VRAM to run Qwen2.5-Coder 32B? (FP16/Q8/Q6/Q4 requirements)</title>
+  <meta name="description" content="VRAM requirements for Qwen2.5-Coder 32B: approximate memory needed at FP16, Q8_0, Q6_K, Q5_K_M and Q4_K_M with 8k context, and which GPUs it fits on. Q4_K_M needs ~23 GB.">
+  <link rel="canonical" href="https://slashmantools.us/llm-calc/models/qwen2.5-coder-32b.html">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <style>:root{color-scheme:light dark}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.6;max-width:760px;margin:0 auto;padding:24px 16px 48px}
+a{color:#2563eb}
+@media (prefers-color-scheme:dark){a{color:#60a5fa}}
+h1{font-size:1.5rem;line-height:1.3;margin:.5em 0}
+h2{font-size:1.15rem;margin-top:1.8em}
+.back{display:inline-block;margin:8px 0 20px;padding:10px 16px;border:1px solid #8886;border-radius:8px;text-decoration:none;font-weight:600}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.95rem}
+th,td{border:1px solid #8885;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#8882}
+.note{font-size:.85rem;opacity:.75}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid #8884;font-size:.85rem;opacity:.8}</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I run Qwen2.5-Coder 32B on a 24 GB GPU (RTX 3090 / 4090)?","acceptedAnswer":{"@type":"Answer","text":"Yes. At Q4_K_M, Qwen2.5-Coder 32B needs about ~23 GB of VRAM including an 8k-context KV cache, which fits on a 24 GB RTX 3090 or 4090."}},{"@type":"Question","name":"How much VRAM does Qwen2.5-Coder 32B need at Q4_K_M?","acceptedAnswer":{"@type":"Answer","text":"Approximately ~23 GB: ~20 GB for the Q4_K_M weights plus roughly 3.1 GB for an 8k-token KV cache and runtime overhead. That fits on RTX 3090 / RTX 4090 (24 GB)."}}]}</script>
+</head>
+<body>
+  <main>
+    <p><a class="back" href="../">&larr; Interactive LLM VRAM Calculator — try your own context length &amp; quantization</a></p>
+    <h1>How much VRAM to run Qwen2.5-Coder 32B? (FP16/Q8/Q6/Q4 requirements)</h1>
+    <p class="note">Architecture: 64 layers, GQA with 8 KV heads (same base architecture as Qwen2.5 32B). Figures are approximations for weights + an 8k-token FP16 KV cache + ~1 GB runtime overhead, based on typical published GGUF sizes. Actual usage varies by runtime and settings.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Quantization</th><th>Weights</th><th>Total VRAM (8k context)</th><th>Fits on (example)</th></tr>
+        </thead>
+        <tbody>
+        <tr><td><strong>FP16</strong><br><span class="note">full precision (16-bit)</span></td><td>~65 GB</td><td>~68 GB</td><td>A100 / H100 (80 GB)</td></tr>
+        <tr><td><strong>Q8_0</strong><br><span class="note">8-bit</span></td><td>~34 GB</td><td>~38 GB</td><td>2×RTX 3090 or RTX A6000 (48 GB)</td></tr>
+        <tr><td><strong>Q6_K</strong><br><span class="note">~6.6-bit</span></td><td>~27 GB</td><td>~30 GB</td><td>RTX 5090 (32 GB)</td></tr>
+        <tr><td><strong>Q5_K_M</strong><br><span class="note">~5.7-bit</span></td><td>~23 GB</td><td>~26 GB</td><td>RTX 5090 (32 GB)</td></tr>
+        <tr><td><strong>Q4_K_M</strong><br><span class="note">~4.8-bit</span></td><td>~20 GB</td><td>~23 GB</td><td>RTX 3090 / RTX 4090 (24 GB)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>How much VRAM do I need to run Qwen2.5-Coder 32B?</h2>
+    <p>You need roughly <strong>~23 GB</strong> of VRAM to run Qwen2.5-Coder 32B at Q4_K_M with an 8k-token context — that fits on RTX 3090 / RTX 4090 (24 GB). At Q8_0 plan for about ~38 GB, and full FP16 needs around ~68 GB. Qwen2.5-Coder 32B has the same memory footprint as Qwen2.5 32B: Q4_K_M fits (tightly) on a single 24 GB RTX 3090/4090 with 8k context, which is why it became a favorite local coding model. For longer coding contexts (32k+), budget several extra GB of KV cache or use KV quantization.</p>
+    <h2>What affects these numbers?</h2>
+    <p>Three things: the quantization (bytes per parameter), the KV cache (grows linearly with context length — the table assumes 8k tokens), and runtime overhead. Longer contexts need more memory; quantizing the KV cache (e.g. q8_0 cache in llama.cpp) roughly halves that part. Use the <a href="../">interactive calculator</a> to plug in your exact context length and quantization.</p>
+    <footer>
+      <p><a href="index.html">All model VRAM guides</a> &middot; <a href="../">LLM VRAM/RAM Calculator</a></p>
+      <p>Estimates only (&plusmn;10%): real usage depends on runtime (llama.cpp, ollama, vLLM), batch size, and driver overhead.</p>
+    </footer>
+  </main>
+</body>
+</html>

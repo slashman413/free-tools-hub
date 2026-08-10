@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/llm-calc/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://slashmantools.us/llm-calc/" />
+    <title>LLM VRAM Calculator — How Much GPU Memory for Local LLMs?</title>
+    <meta name="description" content="How much VRAM for local LLMs? Free calculator for GGUF, AWQ &amp; FP16 — 7B to 405B models. Estimate GPU memory for llama.cpp, Ollama and more." />
+    <meta name="keywords" content="LLM VRAM calculator, local LLM hardware requirements, GGUF calculator, AWQ quantization, ollama memory, llama.cpp VRAM" />
+    <meta name="google-site-verification" content="jV8Xt5l-peRpLknp7xKYpvN8N5tCAkMctq0D-3RVyzk" />
+    <meta property="og:title" content="LLM VRAM Calculator — How Much GPU Memory for Local LLMs?" />
+    <meta property="og:description" content="Free VRAM/RAM calculator for local LLMs. Estimate GPU memory for GGUF, AWQ and FP16 models from 7B to 405B. Works with llama.cpp, Ollama and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://slashmantools.us/llm-calc/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://slashmantools.us/llm-calc/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LLM VRAM Calculator — How Much GPU Memory for Local LLMs?" />
+    <meta name="twitter:description" content="Free VRAM calculator for local LLMs — GGUF, AWQ, FP16. 7B to 405B. Estimate hardware for llama.cpp, Ollama & more." />
+    <meta name="twitter:image" content="https://slashmantools.us/llm-calc/og.png" />
+    <meta name="twitter:url" content="https://slashmantools.us/llm-calc/" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7217603696203672"
+         crossorigin="anonymous"></script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY95FHB8JG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MY95FHB8JG');
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LLM VRAM Calculator","url":"https://slashmantools.us/llm-calc/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free calculator that estimates the VRAM and RAM needed to run local LLMs (7B–405B) across GGUF k-quants (Q3–Q8), AWQ and FP16, including KV cache and overhead."}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much VRAM do I need to run a local LLM?","acceptedAnswer":{"@type":"Answer","text":"It depends on model size and quantization. This free calculator estimates VRAM/RAM for 7B to 405B models in GGUF, AWQ and FP16."}},{"@type":"Question","name":"How much VRAM to run Llama 3 70B?","acceptedAnswer":{"@type":"Answer","text":"About 48 GB in Q4_K_M (4-bit), 81 GB in Q8_0, or 150 GB in FP16 — total VRAM including KV cache and overhead at 8K context. A 70B model fits on a single 48 GB GPU (RTX 6000 Ada / Radeon PRO W7900) in 4-bit, or an 80 GB A100 in 8-bit."}},{"@type":"Question","name":"Can I run a 32B model on a 24 GB GPU (RTX 4090)?","acceptedAnswer":{"@type":"Answer","text":"Yes. At Q4_K_M a 32B model needs about 23 GB, which fits a 24 GB RTX 4090 / 7900 XTX at 8K context. Higher quants need more: Q6_K about 30 GB, Q8_0 about 38 GB."}},{"@type":"Question","name":"How much VRAM for a 7B model?","acceptedAnswer":{"@type":"Answer","text":"About 6.4 GB in Q4_K_M, 9.5 GB in Q8_0, and 16 GB in FP16 — a 7B model runs comfortably on an 8 GB GPU in 4-bit."}},{"@type":"Question","name":"What is quantization (GGUF / AWQ)?","acceptedAnswer":{"@type":"Answer","text":"Quantization shrinks model weights (e.g. to 4-bit) to reduce memory use with minimal quality loss, letting larger models fit on smaller GPUs."}},{"@type":"Question","name":"Is it free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free and runs in your browser."}}]}</script>
+  <script type="module" crossorigin src="/llm-calc/assets/index-B_7K-VGa.js"></script>
+  <link rel="stylesheet" crossorigin href="/llm-calc/assets/index-CcfEvWQ1.css">
+</head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Static, crawler- & AI-visible reference. Numbers computed with the same
+         formula as the interactive calculator (src/utils/calculator.ts), 8K context. -->
+    <section class="vref" aria-label="LLM VRAM requirements quick reference">
+      <style>
+        .vref{max-width:960px;margin:8px auto 0;padding:28px 20px 8px;box-sizing:border-box;
+          font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#1e293b;line-height:1.6}
+        .vref h2{font-size:22px;margin:0 0 6px;color:#0f172a}
+        .vref h3{font-size:16px;margin:22px 0 4px;color:#0f172a}
+        .vref p{margin:6px 0;color:#475569;font-size:15px}
+        .vref .note{font-size:13px;color:#64748b}
+        .vref .tw{overflow-x:auto;margin:16px 0;border:1px solid #e2e8f0;border-radius:10px}
+        .vref table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+        .vref th,.vref td{padding:9px 12px;text-align:right;border-bottom:1px solid #eef2f7;
+          font-variant-numeric:tabular-nums}
+        .vref th:first-child,.vref td:first-child{text-align:left;font-weight:600}
+        .vref thead th{background:#f8fafc;color:#334155;border-bottom:1px solid #e2e8f0;
+          font-weight:600;position:sticky;top:0}
+        .vref tbody tr:last-child td{border-bottom:none}
+        .vref .rec{color:#0d9488;font-weight:600}
+        .vref a{color:#0d9488;font-weight:600;text-decoration:none}
+        .vref a:hover{text-decoration:underline}
+        @media (prefers-color-scheme:dark){
+          .vref{color:#cbd5e1} .vref h2,.vref h3{color:#f1f5f9} .vref p{color:#94a3b8}
+          .vref .note{color:#64748b} .vref .tw{border-color:#1e293b}
+          .vref th,.vref td{border-bottom-color:#1e293b}
+          .vref thead th{background:#111827;color:#cbd5e1;border-bottom-color:#1e293b}
+          .vref .rec{color:#2dd4bf} .vref a{color:#2dd4bf}
+        }
+      </style>
+      <h2>LLM VRAM requirements — quick reference</h2>
+      <p>Approximate <strong>total VRAM</strong> (model weights + KV cache + overhead) to run a model at <strong>8K context</strong>, computed with the same formula as the calculator above. Adjust the calculator for your exact model, quantization and context length.</p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th>Model size</th><th>FP16</th><th>Q8_0</th><th>Q6_K</th><th class="rec">Q4_K_M ★</th><th>Smallest GPU (Q4_K_M)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>3B</td><td>7.8 GB</td><td>5.0 GB</td><td>4.3 GB</td><td class="rec">3.6 GB</td><td>8 GB</td></tr>
+            <tr><td>7B</td><td>16.1 GB</td><td>9.5 GB</td><td>7.9 GB</td><td class="rec">6.4 GB</td><td>8 GB</td></tr>
+            <tr><td>8B</td><td>18.2 GB</td><td>10.7 GB</td><td>8.7 GB</td><td class="rec">7.1 GB</td><td>8 GB</td></tr>
+            <tr><td>13B</td><td>28.7 GB</td><td>16.2 GB</td><td>13.1 GB</td><td class="rec">10.4 GB</td><td>12 GB</td></tr>
+            <tr><td>14B</td><td>30.9 GB</td><td>17.3 GB</td><td>14.0 GB</td><td class="rec">11.0 GB</td><td>12 GB</td></tr>
+            <tr><td>32B</td><td>69.2 GB</td><td>37.7 GB</td><td>29.6 GB</td><td class="rec">22.6 GB</td><td>24 GB (RTX 4090)</td></tr>
+            <tr><td>70B</td><td>149.8 GB</td><td>80.7 GB</td><td>63.1 GB</td><td class="rec">47.6 GB</td><td>48 GB</td></tr>
+            <tr><td>405B</td><td>856 GB</td><td>456 GB</td><td>354 GB</td><td class="rec">265 GB</td><td>multi-GPU</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Q4_K_M (~4.85-bit) is the recommended quality/size sweet spot. Figures include a depth-calibrated KV cache and a small runtime buffer; longer context raises the KV cache. <a href="#root">Open the calculator ↑</a> for exact numbers.</p>
+
+      <h3>VRAM requirements by model</h3>
+      <p>Exact per-model requirement pages — <a href="./models/">browse all models →</a></p>
+      <p style="line-height:2">
+        <a href="./models/llama-3.3-70b.html">Llama&nbsp;3.3&nbsp;70B</a> ·
+        <a href="./models/llama-3.1-8b.html">Llama&nbsp;3.1&nbsp;8B</a> ·
+        <a href="./models/qwen2.5-72b.html">Qwen2.5&nbsp;72B</a> ·
+        <a href="./models/qwen2.5-coder-32b.html">Qwen2.5&nbsp;Coder&nbsp;32B</a> ·
+        <a href="./models/qwen2.5-32b.html">Qwen2.5&nbsp;32B</a> ·
+        <a href="./models/deepseek-r1-671b.html">DeepSeek-R1&nbsp;671B</a> ·
+        <a href="./models/deepseek-r1-70b.html">DeepSeek-R1&nbsp;70B</a> ·
+        <a href="./models/mixtral-8x7b.html">Mixtral&nbsp;8x7B</a> ·
+        <a href="./models/gemma-2-27b.html">Gemma&nbsp;2&nbsp;27B</a> ·
+        <a href="./models/phi-4-14b.html">Phi-4&nbsp;14B</a> ·
+        <a href="./models/mistral-7b.html">Mistral&nbsp;7B</a>
+      </p>
+
+      <h3>How much VRAM to run Llama 3 70B?</h3>
+      <p>About <strong>48 GB in Q4_K_M</strong> (4-bit), 81 GB in Q8_0, or 150 GB in FP16 at 8K context. A 70B model fits on one 48 GB GPU (RTX 6000 Ada / Radeon PRO W7900) in 4-bit, or an 80 GB A100 in 8-bit.</p>
+
+      <h3>Can I run a 32B model on a 24 GB GPU (RTX 4090)?</h3>
+      <p>Yes — at <strong>Q4_K_M a 32B model needs ~23 GB</strong>, which just fits a 24 GB RTX 4090 / RX 7900 XTX at 8K context. Q6_K (~30 GB) and Q8_0 (~38 GB) need a larger card.</p>
+
+      <h3>How much VRAM for a 7B model?</h3>
+      <p>About <strong>6.4 GB in Q4_K_M</strong>, 9.5 GB in Q8_0, and 16 GB in FP16 — a 7B model runs comfortably on an 8 GB GPU in 4-bit, so most modern laptops and entry GPUs can handle it.</p>
+
+      <h3>📎 Embed this calculator (free)</h3>
+      <p>Drop the VRAM calculator into your own blog or docs — paste this snippet:</p>
+      <textarea id="embedCode" readonly style="width:100%;min-height:64px;font-family:ui-monospace,Menlo,monospace;font-size:12px;background:#f1f5f9;color:#1e293b;border:1px solid #cbd5e1;border-radius:8px;padding:10px">&lt;iframe src="https://slashmantools.us/llm-calc/embed.html" width="100%" height="360" style="border:1px solid rgba(0,0,0,.12);border-radius:12px;max-width:640px" title="Local LLM VRAM Calculator" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
+      <button id="copyEmbed" style="margin-top:8px;cursor:pointer;padding:8px 14px;border-radius:8px;border:1px solid #0d9488;background:#0d9488;color:#fff;font-weight:600;font-size:14px">📋 Copy embed code</button>
+      <script>
+        (function(){
+          var b=document.getElementById('copyEmbed'), t=document.getElementById('embedCode');
+          b.addEventListener('click',function(){
+            t.select(); t.setSelectionRange(0,99999);
+            var done=function(){ b.textContent='✓ Copied!'; setTimeout(function(){b.textContent='📋 Copy embed code';},1800);
+              try{gtag('event','copy_embed_code',{widget:'llm-calc'})}catch(e){} };
+            if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value).then(done,function(){document.execCommand('copy');done();});}
+            else{document.execCommand('copy');done();}
+          });
+        })();
+      </script>
+    </section>
+
+    <footer style="text-align:center;padding:16px;font-size:12px;color:#94a3b8;font-family:system-ui,sans-serif"><a href="./privacy.html" style="color:#94a3b8;text-decoration:none">Privacy Policy</a><div id="vc" style="text-align:center;font-size:11px;color:#94a3b8;margin:12px 0;opacity:.85"></div><script>fetch("https://abacus.jasoncameron.dev/hit/sm413-llmcalc/views").then(function(r){return r.json()}).then(function(d){document.getElementById("vc").textContent="\u{1F441} "+Number(d.value).toLocaleString()+" 次瀏覽 · views";}).catch(function(){});</script></footer>
+    <script src="https://slashmantools.us/kofi-widget.js" defer></script>
+</body>
+</html>

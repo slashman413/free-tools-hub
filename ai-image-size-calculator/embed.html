@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Image Size & Aspect Ratio Calculator (embed)</title>
+<meta name="robots" content="noindex">
+<!-- Google tag (gtag.js) — attributes embed usage as referral traffic -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY95FHB8JG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MY95FHB8JG');
+  gtag('event', 'embed_load', { widget: 'ai-image-size-calculator' });
+</script>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e8e8f0;padding:14px;line-height:1.5}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px}
+  label{display:block;font-size:12px;color:#9a9ac0;margin-bottom:6px;font-weight:600}
+  .ratios{display:flex;gap:8px;flex-wrap:wrap}
+  .r{padding:7px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#c7c7f0;font-size:13px;cursor:pointer;font-weight:600}
+  .r.on{background:rgba(99,102,241,.25);border-color:rgba(99,102,241,.4)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .row>div{flex:1;min-width:120px}
+  input,select{width:100%;background:#12121a;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e8e8f0;padding:9px;font-size:14px}
+  .out{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+  .out .b{background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.25);border-radius:10px;padding:10px 14px;flex:1;min-width:120px}
+  .out .n{font-size:20px;font-weight:800;color:#a5b4fc}.out .l{font-size:11px;color:#8888b0}
+  .preview{margin:12px auto 0;border:1px dashed rgba(255,255,255,.18);border-radius:6px;background:rgba(99,102,241,.06)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+  th,td{text-align:right;padding:7px;border-bottom:1px solid rgba(255,255,255,.06)}th:first-child,td:first-child{text-align:left}
+  th{color:#8888b0;font-size:11px;text-transform:uppercase}
+  .seclabel{font-size:11px;font-weight:700;letter-spacing:1px;color:#44446a;text-transform:uppercase;margin-bottom:8px}
+  .brand{text-align:center;font-size:12px;margin-top:4px}
+  .brand a{color:#8b8bd6;text-decoration:none;font-weight:600}
+  .brand a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+  <div class="card">
+    <label>Aspect ratio</label>
+    <div class="ratios" id="ratios"></div>
+    <div class="row">
+      <div><label>Custom (W:H)</label><input id="cw" type="number" placeholder="16" style="width:46%;display:inline-block"> : <input id="ch" type="number" placeholder="9" style="width:46%;display:inline-block"></div>
+      <div><label>Long side (px)</label><input id="long" type="number" value="1024" min="64"></div>
+      <div><label>Snap</label><select id="snap"><option value="64">64 (SDXL)</option><option value="8">8</option><option value="1">none</option></select></div>
+    </div>
+    <div class="out">
+      <div class="b"><div class="n" id="dim">1024 × 1024</div><div class="l">Width × Height</div></div>
+      <div class="b"><div class="n" id="mp">1.05</div><div class="l">Megapixels (MP)</div></div>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+  <div class="card">
+    <div class="seclabel">Common model sizes (this ratio)</div>
+    <table><thead><tr><th>Model</th><th>W × H</th><th>MP</th></tr></thead><tbody id="rows"></tbody></table>
+  </div>
+  <div class="brand"><a href="https://slashmantools.us/ai-image-size-calculator/?utm_source=embed&utm_medium=iframe&utm_campaign=ai-image-size" target="_blank" rel="noopener">🖼️ AI Image Size Calculator — slashmantools.us ↗</a></div>
+
+<script>
+  const $=id=>document.getElementById(id);
+  const RATIOS=[["1:1",1,1],["16:9",16,9],["9:16",9,16],["4:3",4,3],["3:4",3,4],["3:2",3,2],["2:3",2,3],["21:9",21,9]];
+  let cur=[16,9];
+  $("ratios").innerHTML=RATIOS.map(([n,w,h])=>`<button class="r" data-w="${w}" data-h="${h}">${n}</button>`).join("");
+  function snapTo(v,s){ return s<=1?Math.round(v):Math.round(v/s)*s; }
+  function calc(){
+    let w=cur[0],h=cur[1];
+    const cw=+$("cw").value,chv=+$("ch").value;
+    if(cw>0&&chv>0){ w=cw; h=chv; document.querySelectorAll('.r').forEach(b=>b.classList.remove('on')); }
+    const long=+$("long").value||1024, s=+$("snap").value;
+    let W,H;
+    if(w>=h){ W=long; H=long*h/w; } else { H=long; W=long*w/h; }
+    W=snapTo(W,s); H=snapTo(H,s);
+    $("dim").textContent=`${W} × ${H}`;
+    $("mp").textContent=(W*H/1e6).toFixed(2);
+    const maxd=150, sc=maxd/Math.max(W,H);
+    const pv=$("preview"); pv.style.width=Math.round(W*sc)+'px'; pv.style.height=Math.round(H*sc)+'px';
+    const bases=[["SD 1.5",512],["SDXL / MJ",1024],["High",1536],["2K",2048]];
+    $("rows").innerHTML=bases.map(([m,b])=>{ let bw,bh; if(w>=h){bw=b;bh=b*h/w;}else{bh=b;bw=b*w/h;} bw=snapTo(bw,s);bh=snapTo(bh,s); return `<tr><td>${m}</td><td>${bw} × ${bh}</td><td>${(bw*bh/1e6).toFixed(2)}</td></tr>`; }).join("");
+  }
+  document.querySelectorAll('.r').forEach(b=>b.addEventListener('click',()=>{ cur=[+b.dataset.w,+b.dataset.h]; $("cw").value='';$("ch").value=''; document.querySelectorAll('.r').forEach(x=>x.classList.remove('on')); b.classList.add('on'); calc(); }));
+  ["cw","ch","long","snap"].forEach(id=>$(id).addEventListener('input',calc));
+  document.querySelector('.r[data-w="16"]').classList.add('on');
+  calc();
+</script>
+</body>
+</html>

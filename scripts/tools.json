@@ -1,0 +1,19 @@
+[
+  {"name": "calculators", "icon": "\ud83e\uddee", "title": "Free Online Calculators", "desc": "BMI, percentage, loan, age & tip calculators — free, in your browser.", "cat": "Calculators"},
+  {"name": "compound-calculator", "icon": "\ud83d\udcc8", "title": "Compound Interest Calculator", "desc": "Compound interest for recurring investments & ETFs, with projections.", "cat": "Calculators"},
+  {"name": "token-cost-calculator", "icon": "\ud83d\udcb0", "title": "Token & API Cost Calculator", "desc": "Compare GPT, Claude and DeepSeek API token costs side by side.", "cat": "Calculators"},
+  {"name": "llm-calc", "icon": "\ud83e\udde0", "title": "LLM VRAM Calculator", "desc": "How much GPU memory do you need to run local LLMs?", "cat": "Calculators"},
+  {"name": "ai-image-size-calculator", "icon": "\ud83d\udcd0", "title": "AI Image Size Calculator", "desc": "Aspect ratios & sizes for AI image generation (SD, Midjourney, DALL\u00b7E).", "cat": "Calculators"},
+  {"name": "dev-tools", "icon": "\ud83e\uddd1\u200d\ud83d\udcbb", "title": "Developer Tools", "desc": "Base64, URL encode/decode, JWT decode, UUID, timestamp & hash tools.", "cat": "Developer"},
+  {"name": "json-regex-devtools", "icon": "\ud83e\udde9", "title": "JSON Formatter & Regex Tester", "desc": "Pretty-print and validate JSON, test regular expressions live.", "cat": "Developer"},
+  {"name": "password-generator", "icon": "\ud83d\udd10", "title": "Password Generator", "desc": "Strong random passwords with custom length, symbols & numbers.", "cat": "Developer"},
+  {"name": "qr-code-generator", "icon": "\ud83d\udd33", "title": "QR Code Generator", "desc": "Free QR codes for URLs, text, Wi-Fi & more — no signup.", "cat": "Developer"},
+  {"name": "unit-converter", "icon": "\ud83d\udccf", "title": "Online Unit Converter", "desc": "Length, weight, temperature, area, volume & data unit conversion.", "cat": "Developer"},
+  {"name": "word-counter", "icon": "\ud83d\udd22", "title": "Word & Character Counter", "desc": "Count words, characters, sentences & reading time instantly.", "cat": "Developer"},
+  {"name": "color-tools", "icon": "\ud83c\udfa8", "title": "Color Picker & Palette Tools", "desc": "Color picker, palette generator, gradient maker & converters.", "cat": "Developer"},
+  {"name": "image-compressor", "icon": "\ud83d\uddbc\ufe0f", "title": "Image Compressor & Resizer", "desc": "Compress and resize images without uploading — private by design.", "cat": "Media"},
+  {"name": "pdf-tools", "icon": "\ud83d\udcc4", "title": "PDF Tools", "desc": "Images to PDF & merge PDFs — all done locally, nothing uploaded.", "cat": "Media"},
+  {"name": "ai-prompt-library", "icon": "\ud83d\udcda", "title": "AI Prompt Templates Library", "desc": "500+ free prompts for ChatGPT, Claude & Gemini, organized by use case.", "cat": "AI"},
+  {"name": "bio-generator", "icon": "\u270d\ufe0f", "title": "AI Bio Generator", "desc": "Generate Instagram, LinkedIn, Twitter & TikTok bios with AI templates.", "cat": "AI"},
+  {"name": "pomodoro-focus-timer", "icon": "\ud83c\udf45", "title": "Pomodoro Focus Timer", "desc": "Pomodoro timer with ambient sounds to help you focus & study.", "cat": "Productivity"}
+]

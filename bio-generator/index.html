@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Bio Generator — Free Instagram, LinkedIn & Twitter Bios</title>
+<meta name="description" content="Generate professional, creative, and catchy bios for Instagram, LinkedIn, Twitter/X, and TikTok. Free AI-powered bio generator with hundreds of templates.">
+<meta name="keywords" content="bio generator, instagram bio, linkedin bio, twitter bio, free bio generator, AI bio, bio ideas">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://slashmantools.us/bio-generator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7217603696203672" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY95FHB8JG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MY95FHB8JG');</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a1a;color:#e2e8f0;min-height:100vh}
+.container{max-width:800px;margin:auto;padding:20px}
+header{text-align:center;padding:40px 0 20px}
+header h1{font-size:2.2rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+header p{color:#64748b;font-size:1rem}
+
+/* Platform selector */
+.platforms{display:flex;gap:10px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+.platform-btn{background:#1e293b;border:2px solid #334155;border-radius:12px;padding:12px 20px;cursor:pointer;color:#94a3b8;font-size:.95rem;transition:all .2s;font-weight:bold}
+.platform-btn:hover{border-color:#475569;color:#e2e8f0}
+.platform-btn.active{background:#1e3a5f;border-color:#3b82f6;color:#60a5fa}
+
+/* Style selector */
+.styles{display:flex;gap:8px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+.style-btn{background:#0f172a;border:1px solid #1e293b;border-radius:20px;padding:8px 16px;cursor:pointer;color:#94a3b8;font-size:.85rem;transition:all .2s}
+.style-btn:hover{border-color:#475569;color:#e2e8f0}
+.style-btn.active{background:#1e293b;border-color:#f59e0b;color:#f59e0b}
+
+/* Keywords input */
+.input-area{margin:20px 0}
+.input-area label{display:block;color:#94a3b8;margin-bottom:6px;font-size:.9rem}
+.keywords-input{width:100%;background:#1e293b;border:2px solid #334155;border-radius:12px;padding:14px 16px;color:#e2e8f0;font-size:1rem;outline:none;transition:border-color .2s}
+.keywords-input:focus{border-color:#3b82f6}
+.keywords-input::placeholder{color:#475569}
+
+/* Generate button */
+.gen-btn{display:block;width:100%;background:linear-gradient(135deg,#3b82f6,#2563eb);color:white;border:none;border-radius:12px;padding:16px;font-size:1.1rem;font-weight:bold;cursor:pointer;margin:20px 0;transition:opacity .2s}
+.gen-btn:hover{opacity:.9}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* Results area */
+.results{display:none;margin:20px 0}
+.results.show{display:block}
+.result-card{background:#1e293b;border-radius:12px;padding:20px;margin:12px 0;position:relative}
+.result-card .label{color:#64748b;font-size:.8rem;margin-bottom:6px;display:flex;justify-content:space-between}
+.result-card .bio-text{font-size:1rem;line-height:1.6;color:#e2e8f0;padding:10px 0}
+.copy-btn{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 14px;color:#94a3b8;cursor:pointer;font-size:.8rem;transition:all .2s}
+.copy-btn:hover{background:#1e293b;color:#e2e8f0;border-color:#475569}
+.copy-btn.copied{background:#22c55e;border-color:#22c55e;color:#0a0a1a}
+.regenerate-btn{background:transparent;border:1px solid #334155;border-radius:8px;padding:6px 14px;color:#94a3b8;cursor:pointer;font-size:.8rem;margin-left:6px}
+.regenerate-btn:hover{border-color:#475569;color:#e2e8f0}
+
+
+/* Affiliate recommendations */
+.affiliate{margin:30px 0}
+.affiliate h3{color:#94a3b8;margin-bottom:12px;font-size:.95rem}
+.affiliate-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.aff-card{background:#1e293b;border-radius:10px;padding:14px;display:flex;align-items:center;gap:10px;text-decoration:none;color:#e2e8f0;transition:transform .2s}
+.aff-card:hover{transform:translateY(-2px)}
+.aff-card .emoji{font-size:1.5rem}
+.aff-card .info{flex:1}
+.aff-card .info h4{font-size:.9rem;margin-bottom:2px}
+.aff-card .info p{font-size:.75rem;color:#64748b}
+.aff-card .tag{background:#f59e0b;color:#0a0a1a;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:bold}
+
+/* FAQ */
+.faq{margin:40px 0}
+.faq h2{text-align:center;margin-bottom:20px;color:#94a3b8;font-size:1.2rem}
+.faq-item{background:#1e293b;border-radius:10px;padding:14px 18px;margin:8px 0}
+.faq-item h3{font-size:.95rem;color:#f59e0b;margin-bottom:4px}
+.faq-item p{font-size:.85rem;color:#94a3b8;line-height:1.5}
+
+footer{text-align:center;padding:30px 0;color:#475569;font-size:.85rem}
+footer a{color:#3b82f6;text-decoration:none}
+
+/* Loading spinner */
+.spinner{display:inline-block;width:20px;height:20px;border:3px solid #1e293b;border-top-color:#3b82f6;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.share-bar{display:flex;align-items:center;gap:6px;margin:20px 0 16px;flex-wrap:wrap;justify-content:center}
+.share-bar .lbl{font-size:11px;color:#475569;font-weight:600;margin-right:4px;letter-spacing:.5px}
+.share-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:8px;border:1px solid #334155;background:#1e293b;color:#94a3b8;text-decoration:none;font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
+.share-btn:hover{background:#0f172a;border-color:#475569;color:#e2e8f0}
+.share-btn.copied{background:#22c55e;border-color:#22c55e;color:#0a0a1a}
+</style>
+<meta property="og:title" content="AI Bio Generator — Free Instagram, LinkedIn & Twitter Bios">
+<meta property="og:description" content="Generate professional, creative, and catchy bios for Instagram, LinkedIn, Twitter/X, and TikTok. Free AI-powered bio generator with hundreds of templates.">
+<meta property="og:image" content="https://slashmantools.us/bio-generator/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="SlashMan Tools">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>✨ Bio Generator</h1>
+        <p>Generate perfect bios for Instagram, LinkedIn, Twitter & TikTok — free</p>
+    </header>
+    <div class="share-bar">
+        <span class="lbl">📤 Share</span>
+        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fslashmantools.us%2Fbio-generator%2F" target="_blank" rel="noopener">📘 Facebook</a>
+        <a class="share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fslashmantools.us%2Fbio-generator%2F" target="_blank" rel="noopener">🐦 X</a>
+        <a class="share-btn" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fslashmantools.us%2Fbio-generator%2F" target="_blank" rel="noopener">💬 Line</a>
+        <button class="share-btn" onclick="shareLink(this,'https://slashmantools.us/bio-generator/')">🔗 Copy Link</button>
+    </div>
+    <script>
+        function shareLink(el,url){navigator.clipboard.writeText(url).then(function(){el.textContent='✓ Copied!';el.classList.add('copied');setTimeout(function(){el.textContent='🔗 Copy Link';el.classList.remove('copied');},2000);}).catch(function(){})}
+    </script>
+
+    <ins class="adsbygoogle" style="display:block;margin:16px 0" data-ad-client="ca-pub-7217603696203672" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+
+    <div class="platforms">
+        <div class="platform-btn active" data-platform="instagram">📸 Instagram</div>
+        <div class="platform-btn" data-platform="linkedin">💼 LinkedIn</div>
+        <div class="platform-btn" data-platform="twitter">🐦 Twitter / X</div>
+        <div class="platform-btn" data-platform="tiktok">🎵 TikTok</div>
+    </div>
+
+    <div class="styles">
+        <div class="style-btn active" data-style="professional">Professional</div>
+        <div class="style-btn" data-style="creative">Creative</div>
+        <div class="style-btn" data-style="funny">Funny</div>
+        <div class="style-btn" data-style="minimalist">Minimalist</div>
+        <div class="style-btn" data-style="emoji">Emoji ✨</div>
+    </div>
+
+    <div class="input-area">
+        <label for="keywords">Describe yourself or your brand (optional):</label>
+        <input type="text" id="keywords" class="keywords-input" placeholder="e.g. software developer, coffee lover, travel, fitness, AI enthusiast...">
+    </div>
+
+    <button class="gen-btn" id="generateBtn">✨ Generate Bios</button>
+
+    <div class="results" id="results">
+        <div id="biosList"></div>
+    </div>
+
+    <div class="affiliate" id="affiliateSection" style="display:none">
+        <h3>🔥 Recommended tools to level up your online presence</h3>
+        <div class="affiliate-grid">
+            <a href="https://canva.7eqqeg.net/5gN3M5" class="aff-card" target="_blank" rel="sponsored">
+                <span class="emoji">🎨</span>
+                <div class="info"><h4>Canva Pro</h4><p>Design stunning social media graphics</p></div>
+                <span class="tag">Free trial</span>
+            </a>
+            <a href="https://www.amazon.com/dp/B0BZM2L8GS?tag=slashman413-20" class="aff-card" target="_blank" rel="sponsored">
+                <span class="emoji">📸</span>
+                <div class="info"><h4>Social Media Bible</h4><p>Grow your following in 2026</p></div>
+                <span class="tag">Book</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="faq">
+        <h2>❓ Frequently Asked</h2>
+        <div class="faq-item">
+            <h3>How does the bio generator work?</h3>
+            <p>Select your platform and style, optionally add keywords about yourself, and we'll generate multiple bio options instantly. All generated client-side.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is it really free?</h3>
+            <p>Yes! The generator is completely free — no sign-up or email required.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I use these bios for business?</h3>
+            <p>Absolutely. All generated bios are free to use for personal or commercial purposes.</p>
+        </div>
+    </div>
+
+  <!-- CROSS-LINK START -->
+  <div class="cross-links" style="max-width:800px;margin:40px auto 0;text-align:center">
+    <div style="font-size:14px;font-weight:700;color:#c7c7f0;margin-bottom:4px">🔗 你可能也會喜歡</div>
+    <div style="font-size:11px;color:#7878a0;margin-bottom:14px">More Tools</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;text-align:left">
+      <a href="https://slashmantools.us/color-tools/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#e2e8f0">顏色工具 | Color Tools</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">選色/HEX↔RGB/CSS 漸層產生</div>
+      </a>
+      <a href="https://slashmantools.us/qr-code-generator/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#e2e8f0">QR Code 產生器 | QR Generator</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">網址/文字即時生成 QR Code</div>
+      </a>
+      <a href="https://slashmantools.us/word-counter/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#e2e8f0">字數統計 | Word Counter</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">即時統計字數/字元/閱讀時間</div>
+      </a>
+    </div>
+  </div>
+  <!-- CROSS-LINK END -->
+
+    <footer>
+        <p><a href="https://github.com/slashman413/bio-generator">GitHub</a> · <a href="https://slashmantools.us/tools/">More Free Tools</a></p>
+        <p style="margin-top:8px"><small>Some links are affiliate links. We may earn a commission at no extra cost to you.</small></p>
+    </footer>
+</div>
+
+<script>
+const BIOS = {
+    instagram: {
+        professional: [
+            "Building the future, one line of code at a time • {keyword} • 📍 Based in Taiwan",
+            "{keyword} | Helping brands grow with data-driven strategies",
+            "Making things happen • {keyword} • Let's connect!",
+        ],
+        creative: [
+            "Living life in full color 🌈 • {keyword} • Turning dreams into reality",
+            "Creating, exploring, inspiring • {keyword} • This is my story",
+            "Art & soul • {keyword} • Every day is a masterpiece in progress",
+        ],
+        funny: [
+            "Professional overthinker 🤔 • {keyword} • My hobbies include adding things to my cart and not checking out",
+            "I'm not lazy, I'm on energy-saving mode • {keyword}",
+            "{keyword} • Probably running on caffeine and questionable decisions ☕",
+        ],
+        minimalist: [
+            "{keyword} • Less but better",
+            "{keyword} • Simplify • Focus • Grow",
+            "{keyword} • Just do it.",
+        ],
+        emoji: [
+            "✨ {keyword} 🌍 ✈️ ☕ 📚",
+            "💼 {keyword} 🌱 🚀 💡 🔥",
+            "🌅 {keyword} 🎯 💪 ⚡ 🎵",
+        ],
+    },
+    linkedin: {
+        professional: [
+            "{keyword} | Helping businesses achieve more through innovation & strategy",
+            "{keyword} | Driving growth through data, creativity, and collaboration",
+            "{keyword} | Open to opportunities | Let's connect and build something great",
+        ],
+        creative: [
+            "{keyword} | Design thinker | Turning complex problems into elegant solutions",
+            "{keyword} | Storyteller at heart | Brand builder by trade",
+        ],
+        funny: [
+            "{keyword} | Also known as the person who sends long voice notes",
+            "{keyword} | My other job is pretending to know what I'm doing",
+        ],
+        minimalist: [
+            "{keyword} | Results-driven | Let's talk",
+            "{keyword} | Building. Learning. Growing.",
+        ],
+        emoji: [
+            "💼 {keyword} 🚀 📊 🤝 🌍",
+            "🔧 {keyword} 💡 📈 🏆",
+        ],
+    },
+    twitter: {
+        professional: [
+            "{keyword} | Tweets about tech, productivity, and building things",
+            "{keyword} | Sharing insights on growth, strategy, and innovation",
+        ],
+        creative: [
+            "{keyword} | Writing my way through life | Words & ideas",
+            "{keyword} | Artist × Technologist | Making the world more interesting",
+        ],
+        funny: [
+            "{keyword} | I say 'brb' and disappear for 3 business days",
+            "{keyword} | My brain is 90% useless facts and 10% what I need for work",
+        ],
+        minimalist: [
+            "{keyword} • Thoughts • Code • Coffee",
+            "{keyword} | Simplicity is the ultimate sophistication",
+        ],
+        emoji: [
+            "🐦 {keyword} 🧵 ☕ 💻 🌍",
+            "⚡ {keyword} 🔥 🎯 🚀",
+        ],
+    },
+    tiktok: {
+        professional: [
+            "{keyword} | Sharing tips to help you level up | Daily content",
+            "{keyword} | Making complex topics simple | New videos every day",
+        ],
+        creative: [
+            "{keyword} | Creating content that matters | Join the journey 🌟",
+            "{keyword} | Life through my lens | Subscribe for daily vibes",
+        ],
+        funny: [
+            "{keyword} | Professional chaos coordinator | Send help",
+            "{keyword} | I'm funnier in person | Or am I?",
+        ],
+        minimalist: [
+            "{keyword} | Less scrolling, more creating",
+            "{keyword} | Daily. Simple. Real.",
+        ],
+        emoji: [
+            "🎬 {keyword} 🔥 💃 🎵 ✨",
+            "📱 {keyword} 🎥 ⚡ 🎶",
+        ],
+    },
+};
+
+let currentPlatform = "instagram";
+let currentStyle = "professional";
+
+document.querySelectorAll(".platform-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".platform-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentPlatform = btn.dataset.platform;
+    });
+});
+
+document.querySelectorAll(".style-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".style-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentStyle = btn.dataset.style;
+    });
+});
+
+document.getElementById("generateBtn").addEventListener("click", generateBios);
+
+function generateBios() {
+    const keywords = document.getElementById("keywords").value.trim() || "creator";
+    const platformData = BIOS[currentPlatform];
+    if (!platformData) return;
+    
+    const styleData = platformData[currentStyle];
+    if (!styleData) return;
+
+    const btn = document.getElementById("generateBtn");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Generating...';
+
+    setTimeout(() => {
+        const biosList = document.getElementById("biosList");
+        biosList.innerHTML = "";
+        
+        // Pick 3 bios from the pool
+        const shuffled = [...styleData].sort(() => Math.random() - 0.5);
+        const selected = shuffled.slice(0, Math.min(3, shuffled.length));
+        
+        selected.forEach((bio, i) => {
+            const finalBio = bio.replace(/\{keyword\}/g, keywords);
+            const card = document.createElement("div");
+            card.className = "result-card";
+
+            const label = document.createElement("div");
+            label.className = "label";
+            const span = document.createElement("span");
+            span.textContent = "Bio " + (i + 1);
+            const btnWrap = document.createElement("div");
+            const copyBtn = document.createElement("button");
+            copyBtn.className = "copy-btn";
+            copyBtn.textContent = "📋 Copy";
+            copyBtn.addEventListener("click", () => copyBio(copyBtn, finalBio));
+            const regenBtn = document.createElement("button");
+            regenBtn.className = "regenerate-btn";
+            regenBtn.textContent = "🔄";
+            regenBtn.addEventListener("click", () => regenerateSingle(regenBtn, i));
+            btnWrap.appendChild(copyBtn);
+            btnWrap.appendChild(regenBtn);
+            label.appendChild(span);
+            label.appendChild(btnWrap);
+
+            const bioText = document.createElement("div");
+            bioText.className = "bio-text";
+            bioText.textContent = finalBio;
+
+            card.appendChild(label);
+            card.appendChild(bioText);
+            biosList.appendChild(card);
+        });
+
+        // Show affiliate section
+        document.getElementById("affiliateSection").style.display = "block";
+
+        // Show results
+        const results = document.getElementById("results");
+        results.classList.add("show");
+        results.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        btn.disabled = false;
+        btn.innerHTML = "✨ Generate More Bios";
+    }, 500);
+}
+
+function copyBio(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = "✅ Copied!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+            btn.textContent = "📋 Copy";
+            btn.classList.remove("copied");
+        }, 2000);
+    });
+}
+
+function regenerateSingle(btn, index) {
+    // Simple re-gen: just re-run (for now, re-generates all)
+    generateBios();
+}
+</script>
+</body>
+</html>

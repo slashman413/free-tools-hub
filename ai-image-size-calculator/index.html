@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼️</text></svg>">
+<title>AI 出圖尺寸 & 長寬比計算機 | AI Image Size & Aspect Ratio Calculator</title>
+<meta name="description" content="AI 繪圖尺寸計算機：依長寬比算出 Midjourney / Stable Diffusion / SDXL 的正確寬高（自動對齊 64 倍數），含百萬像素。Free aspect ratio & resolution calculator for AI image generation.">
+<meta property="og:title" content="AI 出圖尺寸 & 長寬比計算機">
+<meta property="og:description" content="依長寬比算出 SD/SDXL/Midjourney 正確寬高，自動對齊 64 倍數。">
+<meta property="og:image" content="https://slashmantools.us/ai-image-size-calculator/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="SlashMan Tools"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://slashmantools.us/ai-image-size-calculator/og.png">
+<meta name="google-site-verification" content="jV8Xt5l-peRpLknp7xKYpvN8N5tCAkMctq0D-3RVyzk">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7217603696203672" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY95FHB8JG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MY95FHB8JG');</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI Image Size & Aspect Ratio Calculator","url":"https://slashmantools.us/ai-image-size-calculator/","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Aspect ratio and resolution calculator for Midjourney, Stable Diffusion and SDXL.","inLanguage":["zh-TW","en"]}</script>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e8e8f0;min-height:100vh;padding:28px 16px 56px;line-height:1.5}
+  .wrap{max-width:560px;margin:0 auto}
+  .topbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .topbar h1{font-size:18px;font-weight:700;flex:1}
+  .lang-btn{padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#c7c7f0;font-size:12px;font-weight:700;cursor:pointer}
+  .sub{color:#7878a0;font-size:13px;margin-bottom:16px}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;margin-bottom:14px}
+  label{display:block;font-size:12px;color:#9a9ac0;margin-bottom:6px;font-weight:600}
+  .ratios{display:flex;gap:8px;flex-wrap:wrap}
+  .r{padding:8px 13px;border-radius:9px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#c7c7f0;font-size:13px;cursor:pointer;font-weight:600}
+  .r.on{background:rgba(99,102,241,.25);border-color:rgba(99,102,241,.4)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .row>div{flex:1;min-width:130px}
+  input,select{width:100%;background:#12121a;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e8e8f0;padding:9px;font-size:14px}
+  .out{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+  .out .b{background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.25);border-radius:10px;padding:12px 16px;flex:1;min-width:130px}
+  .out .n{font-size:22px;font-weight:800;color:#a5b4fc}.out .l{font-size:11px;color:#8888b0}
+  .preview{margin:14px auto 0;border:1px dashed rgba(255,255,255,.18);border-radius:6px;background:rgba(99,102,241,.06)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{text-align:right;padding:8px;border-bottom:1px solid rgba(255,255,255,.06)}th:first-child,td:first-child{text-align:left}
+  th{color:#8888b0;font-size:11px;text-transform:uppercase}
+  .seclabel{font-size:11px;font-weight:700;letter-spacing:1px;color:#44446a;text-transform:uppercase;margin:16px 0 8px}
+  .ad-slot{width:100%;min-height:90px;background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.07);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#303048;margin:16px 0}
+  .aff{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;text-decoration:none;color:inherit}
+  .aff .i{font-size:22px}.aff b{font-size:13px}.aff span{font-size:11px;color:#7878a0;display:block}
+  .note{font-size:10.5px;color:#50506e;margin-top:8px;line-height:1.6}
+  .footer{margin-top:20px;text-align:center;font-size:11px;color:#444466;line-height:1.8}
+  .footer a{color:#6868a0;text-decoration:none}.footer a:hover{text-decoration:underline}
+
+  .share-bar{display:flex;align-items:center;gap:6px;margin:10px 0 16px;flex-wrap:wrap}
+  .share-bar .lbl{font-size:11px;color:#55557a;font-weight:600;margin-right:4px;letter-spacing:.5px}
+  .share-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
+  .share-btn:hover{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.35);color:#c7c7f0}
+  .share-btn.copied{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.35);color:#10b981}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","mainEntity":[{"acceptedAnswer":{"text":"Stable Diffusion / SDXL 對 64 倍數的尺寸支援最佳，可避免破圖。SD/SDXL work best with dimensions that are multiples of 64.","@type":"Answer"},"name":"為什麼要對齊 64 倍數？ / Why snap to multiples of 64?","@type":"Question"},{"acceptedAnswer":{"text":"內建 1:1、16:9、9:16、4:3、3:2、21:9 等，也可自訂任意比例。Includes 1:1, 16:9, 9:16, 4:3, 3:2, 21:9 and custom ratios.","@type":"Answer"},"name":"支援哪些長寬比？ / Which aspect ratios?","@type":"Question"},{"acceptedAnswer":{"text":"免費，本機運算。Free and runs locally.","@type":"Answer"},"name":"免費嗎？ / Is it free?","@type":"Question"}],"@type":"FAQPage"}</script>
+<link rel="canonical" href="https://slashmantools.us/ai-image-size-calculator/">
+<meta property="og:url" content="https://slashmantools.us/ai-image-size-calculator/">
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span style="font-size:24px">🖼️</span><h1 data-i18n="title">AI 出圖尺寸 & 長寬比計算機</h1><select class="lang-btn" id="langSel" onchange="setLang(this.value)" aria-label="Language" style="cursor:pointer"><option value="en">EN</option><option value="zh">中</option><option value="es">ES</option><option value="hi">हि</option><option value="ar">ع</option></select></div>
+  <div class="sub" data-i18n="sub">選長寬比 + 目標長邊，算出對齊 64 倍數的正確寬高（Midjourney / SD / SDXL 適用）。</div>
+
+  <div class="share-bar">
+    <span class="lbl">📤 分享</span>
+    <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fslashmantools.us%2Fai-image-size-calculator%2F" target="_blank" rel="noopener" onclick="try{gtag('event','share_facebook')}catch(e){}">📘 FB</a>
+    <a class="share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fslashmantools.us%2Fai-image-size-calculator%2F" target="_blank" rel="noopener" onclick="try{gtag('event','share_twitter')}catch(e){}">🐦 X</a>
+    <a class="share-btn" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fslashmantools.us%2Fai-image-size-calculator%2F" target="_blank" rel="noopener" onclick="try{gtag('event','share_line')}catch(e){}">💬 Line</a>
+    <button class="share-btn" onclick="shareLink(this,'https://slashmantools.us/ai-image-size-calculator/')">🔗 複製連結</button>
+  </div>
+  <script>
+    function shareLink(el,url){navigator.clipboard.writeText(url).then(function(){el.textContent='✓ 已複製';el.classList.add('copied');setTimeout(function(){el.textContent='🔗 複製連結';el.classList.remove('copied');},2000);try{gtag('event','share_copylink')}catch(e){}}).catch(function(){})}
+  </script>
+  <div class="card">
+    <label data-i18n="pick">長寬比</label>
+    <div class="ratios" id="ratios"></div>
+    <div class="row">
+      <div><label data-i18n="custom">自訂比例 (W:H)</label><input id="cw" type="number" placeholder="16" style="width:46%;display:inline-block"> : <input id="ch" type="number" placeholder="9" style="width:46%;display:inline-block"></div>
+      <div><label data-i18n="longside">目標長邊 (px)</label><input id="long" type="number" value="1024" min="64"></div>
+      <div><label data-i18n="snap">對齊</label><select id="snap"><option value="64">64 (SDXL)</option><option value="8">8</option><option value="1">不對齊</option></select></div>
+    </div>
+    <div class="out">
+      <div class="b"><div class="n" id="dim">1024 × 1024</div><div class="l" data-i18n="result">建議寬 × 高</div></div>
+      <div class="b"><div class="n" id="mp">1.05</div><div class="l" data-i18n="mpx">百萬像素 (MP)</div></div>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+  <div class="card">
+    <div class="seclabel" data-i18n="presets">常見模型原生尺寸（此比例）</div>
+    <table><thead><tr><th data-i18n="model">模型</th><th>W × H</th><th>MP</th></tr></thead><tbody id="rows"></tbody></table>
+    <div class="note" data-i18n="presetnote">※ SD1.5 基準 512、SDXL 基準 1024；數值已依比例對齊 64 倍數，實際依模型/介面為準。</div>
+  </div>
+
+  <ins class="adsbygoogle ad-slot" style="display:block" data-ad-client="ca-pub-7217603696203672" data-ad-format="auto" data-full-width-responsive="true"></ins>
+
+  <a class="aff" href="https://www.amazon.com/dp/B0924GYSNG?tag=ytstories0413-20" target="_blank" rel="nofollow sponsored noopener">
+    <div class="i">🖊️</div><div><b data-i18n="book_t">XPPen 繪圖板</b><span data-i18n="book_d">AI 出圖後想修圖、手繪？入門繪圖板</span></div>
+  </a>
+  <div class="note" data-i18n="aff_disc">含 Amazon 聯盟連結，透過連結購買我們可能獲得回饋，不影響你的價格。As an Amazon Associate we earn from qualifying purchases.</div>
+
+  <div class="card">
+    <div class="seclabel">📎 <span data-i18n="embed_t">Embed this calculator (free)</span></div>
+    <textarea id="embedCode" readonly style="min-height:70px;font-family:ui-monospace,Menlo,monospace;font-size:12px">&lt;iframe src="https://slashmantools.us/ai-image-size-calculator/embed.html" width="100%" height="620" style="border:1px solid rgba(0,0,0,.12);border-radius:12px;max-width:560px" title="AI Image Size &amp; Aspect Ratio Calculator" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
+    <button id="copyEmbed" class="lang-btn" style="margin-top:8px;cursor:pointer">📋 <span data-i18n="embed_copy">Copy embed code</span></button>
+    <script>
+      (function(){
+        var b=document.getElementById('copyEmbed'), t=document.getElementById('embedCode');
+        b.addEventListener('click',function(){
+          t.select(); t.setSelectionRange(0,99999);
+          var done=function(){ b.textContent='✓ Copied!'; setTimeout(function(){b.innerHTML='📋 <span data-i18n="embed_copy">Copy embed code</span>';},1800);
+            try{gtag('event','copy_embed_code',{widget:'ai-image-size-calculator'})}catch(e){} };
+          if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value).then(done,function(){document.execCommand('copy');done();});}
+          else{document.execCommand('copy');done();}
+        });
+      })();
+    </script>
+  </div>
+<div style="max-width:680px;margin:18px auto 0"><div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#44446a;text-transform:uppercase;margin-bottom:8px">FAQ · 常見問題</div><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">為什麼要對齊 64 倍數？ / Why snap to multiples of 64?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">Stable Diffusion / SDXL 對 64 倍數的尺寸支援最佳，可避免破圖。SD/SDXL work best with dimensions that are multiples of 64.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">支援哪些長寬比？ / Which aspect ratios?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">內建 1:1、16:9、9:16、4:3、3:2、21:9 等，也可自訂任意比例。Includes 1:1, 16:9, 9:16, 4:3, 3:2, 21:9 and custom ratios.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">免費嗎？ / Is it free?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">免費，本機運算。Free and runs locally.</p></details></div>
+<div style="max-width:680px;margin:18px auto 0;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#44446a;text-transform:uppercase;margin-bottom:8px">更多免費工具 · More tools</div><div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center"><a href="https://slashmantools.us/llm-calc/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🖥️ LLM VRAM</a><a href="https://slashmantools.us/token-cost-calculator/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🧮 Token 成本</a><a href="https://slashmantools.us/ai-image-size-calculator/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🖼️ 出圖尺寸</a><a href="https://slashmantools.us/ai-prompt-library/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">📝 Prompt 庫</a><a href="https://slashmantools.us/pomodoro-focus-timer/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🍅 番茄鐘</a><a href="https://slashmantools.us/json-regex-devtools/" style="display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#9a9ac0;text-decoration:none;font-size:12px">🛠️ JSON·Regex</a></div></div>
+<div id="vc" style="text-align:center;font-size:11px;color:#55557a;margin-top:16px;opacity:.85"></div><script>(function(){function rv(){var e=document.getElementById("vc");if(!e||!e.dataset.n)return;var en=(localStorage.getItem("site_lang")==="en");e.textContent="\u{1F441} "+Number(e.dataset.n).toLocaleString()+(en?" views":" 次瀏覽");}fetch("https://abacus.jasoncameron.dev/hit/sm413-imageratio/views").then(function(r){return r.json()}).then(function(d){var e=document.getElementById("vc");if(e){e.dataset.n=d.value;rv();}}).catch(function(){});var lb=document.getElementById("langBtn");if(lb)lb.addEventListener("click",function(){setTimeout(rv,0);});})();</script>
+    
+
+    
+  <!-- GUIDE START -->
+  <section class="guide" style="max-width:560px;margin:22px auto;text-align:left;line-height:1.7;color:#9a9ac0;font-size:13.5px">
+    <h2 style="font-size:16px;color:#e8e8f0;margin:16px 0 8px">About this AI image size calculator</h2>
+    <p>Get the right resolution and aspect ratio for AI image generators like Midjourney, Stable Diffusion and SDXL. It suggests dimensions aligned to the multiples these models expect, helping you avoid stretched or low-quality results.</p>
+    <h3 style="font-size:13.5px;color:#c7c7f0;margin:14px 0 6px">How to use</h3>
+    <ol style="padding-left:20px;margin:0"><li>Choose your target aspect ratio (e.g. 16:9, 1:1, 9:16).</li><li>Read the recommended pixel dimensions.</li><li>Paste them into your AI tool's settings.</li></ol>
+    <h3 style="font-size:13.5px;color:#c7c7f0;margin:14px 0 6px">Why use it</h3>
+    <p>Using off-spec dimensions can cause artifacts, cropping or wasted compute. Starting from model-friendly sizes gives cleaner generations and predictable framing for social, print or web.</p>
+    <h3 style="font-size:13.5px;color:#c7c7f0;margin:14px 0 6px">FAQ</h3>
+    <details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0"><summary style="cursor:pointer;font-weight:600;font-size:13px;color:#c7c7f0">Why do dimensions need to be multiples of 64?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">Diffusion models work in latent blocks; sizes aligned to 8 or 64 avoid padding artifacts.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0"><summary style="cursor:pointer;font-weight:600;font-size:13px;color:#c7c7f0">What size is best for SDXL?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">SDXL is trained around 1024x1024; the calculator suggests matching ratios at suitable resolutions.</p></details><details style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0"><summary style="cursor:pointer;font-weight:600;font-size:13px;color:#c7c7f0">Does it upload anything?</summary><p style="margin-top:8px;font-size:12.5px;color:#9a9ac0;line-height:1.6">No — it's a pure calculator that runs in your browser.</p></details>
+  </section>
+  <!-- GUIDE END -->
+  <!-- MONETIZE START -->
+  <div class="reco-widget" data-cat="ai"></div>
+  <div class="more"><a href="https://ko-fi.com/ytstories0413" target="_blank" rel="noopener" onclick="try{gtag('event','kofi_click')}catch(e){}">☕ 請我喝咖啡 Ko-fi</a></div>
+  <script src="https://slashmantools.us/reco-widget.js" defer></script>
+  <!-- MONETIZE END --><div class="footer">
+    <a href="https://slashmantools.us/" data-i18n="home">← 回 AI工具人首頁</a><br>
+    <a href="https://slashmantools.us/terms.html" data-i18n="terms">服務說明</a> · <a href="https://slashmantools.us/privacy.html" data-i18n="privacy">隱私權政策</a>
+  </div>
+
+  <!-- CROSS-LINK START -->
+  <div class="cross-links" style="max-width:560px;margin:24px auto 0;text-align:center">
+    <div style="font-size:13px;font-weight:700;color:#c7c7f0;margin-bottom:4px">🔗 你可能也會喜歡</div>
+    <div style="font-size:11px;color:#7878a0;margin-bottom:12px">More Tools</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;text-align:left">
+      <a href="https://slashmantools.us/token-cost-calculator/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#c7c7f0">Token 成本計算機 | Token Cost</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">估算 LLM API 費用，比較模型</div>
+      </a>
+      <a href="https://slashmantools.us/dev-tools/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#c7c7f0">開發者工具 | Dev Tools</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">Base64/URL/JWT/UUID/Hash，本機運算</div>
+      </a>
+      <a href="https://slashmantools.us/password-generator/" style="display:block;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(99,102,241,.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="font-size:13px;font-weight:700;color:#c7c7f0">密碼產生器 | Password Generator</div>
+        <div style="font-size:11px;color:#7878a0;margin-top:3px">安全隨機密碼，本機產生不上傳</div>
+      </a>
+    </div>
+  </div>
+  <!-- CROSS-LINK END -->
+</div>
+
+<script>
+  const $=id=>document.getElementById(id);
+  const RATIOS=[["1:1",1,1],["16:9",16,9],["9:16",9,16],["4:3",4,3],["3:4",3,4],["3:2",3,2],["2:3",2,3],["21:9",21,9]];
+  let cur=[16,9];
+  $("ratios").innerHTML=RATIOS.map(([n,w,h])=>`<button class="r" data-w="${w}" data-h="${h}">${n}</button>`).join("");
+  function snapTo(v,s){ return s<=1?Math.round(v):Math.round(v/s)*s; }
+  function calc(){
+    let w=cur[0],h=cur[1];
+    const cw=+$("cw").value,chv=+$("ch").value;
+    if(cw>0&&chv>0){ w=cw; h=chv; document.querySelectorAll('.r').forEach(b=>b.classList.remove('on')); }
+    const long=+$("long").value||1024, s=+$("snap").value;
+    let W,H;
+    if(w>=h){ W=long; H=long*h/w; } else { H=long; W=long*w/h; }
+    W=snapTo(W,s); H=snapTo(H,s);
+    $("dim").textContent=`${W} × ${H}`;
+    const mp=(W*H/1e6);
+    $("mp").textContent=mp.toFixed(2);
+    // preview box (scaled)
+    const maxd=160, sc=maxd/Math.max(W,H);
+    const pv=$("preview"); pv.style.width=Math.round(W*sc)+'px'; pv.style.height=Math.round(H*sc)+'px';
+    // presets
+    const bases=[["SD 1.5",512],["SDXL / MJ",1024],["High",1536],["2K",2048]];
+    $("rows").innerHTML=bases.map(([m,b])=>{ let bw,bh; if(w>=h){bw=b;bh=b*h/w;}else{bh=b;bw=b*w/h;} bw=snapTo(bw,s);bh=snapTo(bh,s); return `<tr><td>${m}</td><td>${bw} × ${bh}</td><td>${(bw*bh/1e6).toFixed(2)}</td></tr>`; }).join("");
+  }
+  document.querySelectorAll('.r').forEach(b=>b.addEventListener('click',()=>{ cur=[+b.dataset.w,+b.dataset.h]; $("cw").value='';$("ch").value=''; document.querySelectorAll('.r').forEach(x=>x.classList.remove('on')); b.classList.add('on'); calc(); }));
+  ["cw","ch","long","snap"].forEach(id=>$(id).addEventListener('input',calc));
+  document.querySelector('.r[data-w="16"]').classList.add('on');
+
+  const I18N={"title": {"en": "AI Image Size & Aspect Ratio Calc", "zh": "AI 出圖尺寸 & 長寬比計算機", "es": "Tamaño de imagen AI y cálculo de relación de aspecto", "hi": "एआई छवि आकार और पहलू अनुपात गणना", "ar": "حجم الصورة بالذكاء الاصطناعي وحساب نسبة العرض إلى الارتفاع"}, "sub": {"en": "Pick a ratio + long side to get the correct width/height (snapped to 64) for Midjourney / SD / SDXL.", "zh": "選長寬比 + 目標長邊，算出對齊 64 倍數的正確寬高（Midjourney / SD / SDXL 適用）。", "es": "Elija una proporción + lado largo para obtener el ancho/alto correcto (ajustado a 64) para Midjourney / SD / SDXL.", "hi": "मिडजर्नी/एसडी/एसडीएक्सएल के लिए सही चौड़ाई/ऊंचाई (64 पर स्नैप्ड) प्राप्त करने के लिए अनुपात + लंबी भुजा चुनें।", "ar": "اختر نسبة + الجانب الطويل للحصول على العرض/الارتفاع الصحيح (تم قطعه إلى 64) لـ Midjourney / SD / SDXL."}, "pick": {"en": "Aspect ratio", "zh": "長寬比", "es": "relación de aspecto", "hi": "आस्पेक्ट अनुपात", "ar": "نسبة الارتفاع"}, "custom": {"en": "Custom (W:H)", "zh": "自訂比例 (W:H)", "es": "Personalizado (ancho: alto)", "hi": "कस्टम (डब्ल्यू:एच)", "ar": "مخصص (العرض:الارتفاع)"}, "longside": {"en": "Long side (px)", "zh": "目標長邊 (px)", "es": "Lado largo (px)", "hi": "लंबी भुजा (px)", "ar": "الجانب الطويل (بكسل)"}, "snap": {"en": "Snap", "zh": "對齊", "es": "Quebrar", "hi": "स्नैप", "ar": "فرقعة"}, "result": {"en": "Width × Height", "zh": "建議寬 × 高", "es": "Ancho × Alto", "hi": "चौड़ाई × ऊँचाई", "ar": "العرض × الارتفاع"}, "mpx": {"en": "Megapixels (MP)", "zh": "百萬像素 (MP)", "es": "Megapíxeles (MP)", "hi": "मेगापिक्सेल (एमपी)", "ar": "ميغا بكسل (ميجابكسل)"}, "presets": {"en": "Common model sizes (this ratio)", "zh": "常見模型原生尺寸（此比例）", "es": "Tamaños de modelos comunes (esta relación)", "hi": "सामान्य मॉडल आकार (यह अनुपात)", "ar": "أحجام النماذج الشائعة (هذه النسبة)"}, "model": {"en": "Model", "zh": "模型", "es": "Modelo", "hi": "नमूना", "ar": "نموذج"}, "presetnote": {"en": "* SD1.5 base 512, SDXL base 1024; values snapped to 64 by ratio — actual depends on the model/UI.", "zh": "※ SD1.5 基準 512、SDXL 基準 1024；數值已依比例對齊 64 倍數，實際依模型/介面為準。", "es": "* SD1.5 base 512, SDXL base 1024; los valores se ajustaron a 64 por proporción; los valores reales dependen del modelo/UI.", "hi": "* एसडी1.5 बेस 512, एसडीएक्सएल बेस 1024; मानों को अनुपात के आधार पर 64 पर ला दिया गया है - वास्तविक मॉडल/यूआई पर निर्भर करता है।", "ar": "* قاعدة SD1.5 512، قاعدة SDXL 1024؛ تم قطع القيم إلى 64 حسب النسبة - يعتمد الفعلي على النموذج/واجهة المستخدم."}, "book_t": {"en": "XPPen Drawing Tablet", "zh": "XPPen 繪圖板", "es": "Tableta de dibujo XPPen", "hi": "एक्सपीपेन ड्राइंग टैबलेट", "ar": "تابلت الرسم XPPen"}, "book_d": {"en": "Edit or hand-draw your AI art — entry tablet", "zh": "AI 出圖後想修圖、手繪？入門繪圖板", "es": "Edita o dibuja a mano tu arte con IA: tableta de entrada", "hi": "अपनी एआई कला को संपादित करें या हाथ से बनाएं - प्रवेश टैबलेट", "ar": "قم بتحرير فن الذكاء الاصطناعي الخاص بك أو رسمه يدويًا - جهاز لوحي للإدخال"}, "aff_disc": {"en": "Contains Amazon affiliate links — at no extra cost to you. As an Amazon Associate we earn from qualifying purchases.", "zh": "含 Amazon 聯盟連結，透過連結購買我們可能獲得回饋，不影響你的價格。As an Amazon Associate we earn from qualifying purchases.", "es": "Contiene enlaces de afiliados de Amazon, sin costo adicional para usted. Como asociado de Amazon, ganamos con compras que califican.", "hi": "इसमें अमेज़ॅन सहबद्ध लिंक शामिल हैं - आपके लिए कोई अतिरिक्त लागत नहीं। अमेज़ॅन एसोसिएट के रूप में हम योग्य खरीदारी से कमाते हैं।", "ar": "يحتوي على روابط تابعة لأمازون - دون أي تكلفة إضافية عليك. باعتبارنا أحد شركاء Amazon، فإننا نكسب المال من عمليات الشراء المؤهلة."}, "home": {"en": "← Back to AI Toolkit home", "zh": "← 回 AI工具人首頁", "es": "← Volver a la página de inicio del kit de herramientas de IA", "hi": "← AI टूलकिट होम पर वापस जाएं", "ar": "← العودة إلى الصفحة الرئيسية لمجموعة أدوات الذكاء الاصطناعي"}, "terms": {"en": "Terms", "zh": "服務說明", "es": "Términos", "hi": "शर्तें", "ar": "شروط"}, "privacy": {"en": "Privacy", "zh": "隱私權政策", "es": "Privacidad", "hi": "गोपनीयता", "ar": "خصوصية"}};
+  const _RTL=["ar"];let LANG=localStorage.getItem("site_lang");if(!(I18N.title&&I18N.title[LANG]))LANG=(navigator.language||"en").slice(0,2);if(!(I18N.title&&I18N.title[LANG]))LANG="en";function setLang(l){if(!(I18N.title&&I18N.title[l]))l="en";LANG=l;document.querySelectorAll("[data-i18n]").forEach(function(el){var t=I18N[el.getAttribute("data-i18n")];if(t&&t[l]!=null)el.textContent=t[l];});document.documentElement.lang=l==="zh"?"zh-Hant":l;document.documentElement.dir=_RTL.indexOf(l)>-1?"rtl":"ltr";var s=document.getElementById("langSel");if(s)s.value=l;try{localStorage.setItem("site_lang",l)}catch(e){}}function toggleLang(){}window.toggleLang=toggleLang;window.setLang=setLang;
+  setLang(LANG); calc();
+  document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a');if(!a||!a.href||typeof gtag!=='function')return;var u=a.href;if(u.indexOf('amazon.')>-1)gtag('event','affiliate_click',{link_url:u});else if(u.indexOf('ko-fi.com')>-1)gtag('event','kofi_click',{link_url:u});else if(u.indexOf('youtu')>-1)gtag('event','youtube_click',{link_url:u});else if(u.indexOf('slashmantools.us')>-1)gtag('event','internal_click',{link_url:u});});
+  try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
+</script>
+  <script src="https://slashmantools.us/kofi-widget.js" defer></script>
+<!-- cfo-cta -->
+<div style="max-width:640px;margin:40px auto 24px;padding:16px 8px;border-top:1px solid rgba(120,130,150,.25);text-align:center;font-family:system-ui,-apple-system,sans-serif;font-size:14px;">
+  <div style="opacity:.6;margin-bottom:8px;">More from slashman413</div>
+  <a href="https://slashmaster6.gumroad.com/l/kuvajr?utm_source=tools&utm_medium=web&utm_campaign=ai-image-size-calculator" target="_blank" rel="noopener" style="display:inline-block;margin:4px;padding:8px 14px;border-radius:8px;background:#16a34a;color:#fff;text-decoration:none;font-weight:600;">🛠 SaaS Starter</a>
+  <a href="https://slashman413.github.io/twse-backtests/?utm_source=tools&utm_medium=web&utm_campaign=ai-image-size-calculator" target="_blank" rel="noopener" style="display:inline-block;margin:4px;padding:8px 14px;border-radius:8px;background:#2563eb;color:#fff;text-decoration:none;font-weight:600;">📈 台股量化訊號</a>
+</div>
+</body>
+</html>

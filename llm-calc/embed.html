@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local LLM VRAM/RAM Calculator (embed)</title>
+<meta name="robots" content="noindex">
+<!-- Google tag (gtag.js) — attributes embed usage as referral traffic -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY95FHB8JG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MY95FHB8JG');
+  gtag('event', 'embed_load', { widget: 'llm-calc' });
+</script>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e8e8f0;padding:14px;line-height:1.5}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px}
+  label{display:block;font-size:12px;color:#9a9ac0;margin-bottom:6px;font-weight:600}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:120px}
+  input,select{width:100%;background:#12121a;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e8e8f0;padding:9px;font-size:14px}
+  .out{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .out .b{background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.25);border-radius:10px;padding:12px 16px;flex:1;min-width:120px}
+  .out .n{font-size:24px;font-weight:800;color:#a5b4fc;font-variant-numeric:tabular-nums}.out .l{font-size:11px;color:#8888b0}
+  .brk{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:#8888b0}
+  .brk b{color:#c7c7f0;font-variant-numeric:tabular-nums}
+  .fit{margin-top:12px;font-size:13px;color:#c7c7f0}.fit b{color:#a5b4fc}
+  .brand{text-align:center;font-size:12px;margin-top:4px}
+  .brand a{color:#8b8bd6;text-decoration:none;font-weight:600}.brand a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="row">
+      <div><label>Model size (billion params)</label><input id="p" type="number" value="8" min="0.1" step="0.1"></div>
+      <div><label>Quantization</label><select id="q">
+        <option value="2.0">FP16 — full precision</option>
+        <option value="1.06">Q8_0 — 8-bit</option>
+        <option value="0.82">Q6_K — ~6.6-bit</option>
+        <option value="0.71">Q5_K_M — ~5.7-bit</option>
+        <option value="0.61" selected>Q4_K_M — ~4.85-bit ★</option>
+        <option value="0.49">Q3_K_M — ~3.9-bit</option>
+        <option value="0.55">AWQ — 4-bit</option>
+      </select></div>
+      <div><label>Context (K tokens)</label><select id="c">
+        <option value="2">2K</option><option value="4">4K</option>
+        <option value="8" selected>8K</option><option value="16">16K</option>
+        <option value="32">32K</option><option value="128">128K</option>
+      </select></div>
+    </div>
+    <div class="out">
+      <div class="b"><div class="n" id="total">—</div><div class="l">Total VRAM needed</div></div>
+    </div>
+    <div class="brk">
+      <span>Weights <b id="model">—</b></span><span>KV cache <b id="kv">—</b></span><span>Overhead <b id="buf">—</b></span>
+    </div>
+    <div class="fit" id="fit"></div>
+  </div>
+  <div class="brand"><a href="https://slashmantools.us/llm-calc/?utm_source=embed&utm_medium=iframe&utm_campaign=llm-calc" target="_blank" rel="noopener">🖥️ LLM VRAM Calculator — slashmantools.us ↗</a></div>
+
+<script>
+  // Same formula as src/utils/calculator.ts
+  var $=function(id){return document.getElementById(id);};
+  var GPUS=[[8,"8 GB (RTX 4060 / M-series 8GB)"],[12,"12 GB (RTX 3060/4070)"],[16,"16 GB (RTX 4080 / 7800 XT)"],[24,"24 GB (RTX 4090 / 7900 XTX)"],[32,"32 GB (RTX 5090)"],[48,"48 GB (RTX 6000 Ada / W7900)"],[80,"80 GB (A100)"],[192,"192 GB (MI300X)"]];
+  function calc(){
+    var p=+$("p").value||0, bpw=+$("q").value, ctx=+$("c").value;
+    var model=p*bpw;
+    var kv=ctx*0.064*Math.pow(p,0.4);
+    var buf=Math.max(1.0, model*0.05);
+    var total=model+kv+buf;
+    $("total").textContent=total.toFixed(1)+" GB";
+    $("model").textContent=model.toFixed(1)+" GB";
+    $("kv").textContent=kv.toFixed(1)+" GB";
+    $("buf").textContent=buf.toFixed(1)+" GB";
+    var g=null; for(var i=0;i<GPUS.length;i++){ if(GPUS[i][0]>=total){ g=GPUS[i]; break; } }
+    $("fit").innerHTML = g ? ("Smallest GPU that fits: <b>"+g[1]+"</b>") : "Needs <b>multiple GPUs</b> (&gt;192 GB).";
+  }
+  ["p","q","c"].forEach(function(id){$(id).addEventListener("input",calc);});
+  calc();
+</script>
+</body>
+</html>

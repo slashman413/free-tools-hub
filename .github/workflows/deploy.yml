@@ -1,0 +1,47 @@
+name: Deploy Free Tools Hub to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build hub (inject shared chrome, generate sitemap/landing)
+        run: python3 scripts/build.py
+      - name: Verify build output
+        run: |
+          test -d dist || { echo "::error::dist/ not generated"; exit 1; }
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          test -f dist/sitemap.xml || { echo "::error::dist/sitemap.xml missing"; exit 1; }
+          for t in calculators color-tools pdf-tools qr-code-generator word-counter unit-converter dev-tools json-regex-devtools password-generator token-cost-calculator llm-calc image-compressor ai-image-size-calculator bio-generator compound-calculator pomodoro-focus-timer ai-prompt-library; do
+            test -f "dist/$t/index.html" || { echo "::error::missing tool page dist/$t/index.html"; exit 1; }
+          done
+          echo "OK — $(find dist -name '*.html' | wc -l) HTML pages, $(find dist -name '*.html' | grep -c hub-nav || true) with hub chrome"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://tools.slashmantools.us
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
