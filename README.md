@@ -1,5 +1,7 @@
 # 🛠️ Free Tools Hub
 
+📬 Get AI tips & prompt templates — subscribe to the Slashman Tools newsletter: https://slashmantools.us/subscribe
+
 One deployable site consolidating **17 previously-separate static tool sites** into a
 single domain: **[https://tools.slashmantools.us](https://tools.slashmantools.us)**
 
