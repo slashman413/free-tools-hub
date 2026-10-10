@@ -54,8 +54,12 @@ sitemap.xml · robots.txt · 404.html · CNAME · ads.txt   (generated / static)
 
 ## Redirects from archived source repos
 
-The 16 source repos + `ai-prompt-library` were archived (read-only) after the hub
-went live. Their Pages sites still answer at the old URLs with a canonical +
+15 of the source repos are archived (read-only); they were re-archived on
+2026-10-11 after the 2026-10-05 rollback had unarchived them. Two stay unarchived:
+`llm-calc` (its Pages deploy workflow is disabled, so the old URL still serves the
+previous build rather than the redirect page, and it has open Dependabot PRs) and
+`ai-prompt-library` (its README carries the live Gumroad price and is still edited).
+The archived repos' Pages sites still answer at the old URLs with a canonical +
 meta-refresh consolidation page pointing at the hub (GitHub Pages cannot emit
 HTTP 301s from static files, so this is the equivalent soft redirect).
 
