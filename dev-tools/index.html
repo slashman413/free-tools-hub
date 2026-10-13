@@ -79,6 +79,17 @@
     <div class="pane" id="ts"><input id="tsin" placeholder="Unix seconds or leave blank for now" oninput="ts()"><div class="btns"><button class="b" onclick="document.getElementById('tsin').value=Math.floor(Date.now()/1000);ts()" data-i18n="now">Now</button></div><div class="out" id="tsout"></div></div>
     <div class="pane" id="hash"><textarea id="hashin" placeholder="Text to hash (SHA-256)..." oninput="hashf()"></textarea><div class="out" id="hashout"></div></div>
   </div>
+  <!-- free-sample-cta -->
+  <a class="card" id="free-sample-cta" href="https://slashmaster6.gumroad.com/l/workflow-builder-sample?utm_source=dev-tools&utm_medium=tool-cta" target="_blank" rel="noopener" onclick="try{gtag('event','free_sample_cta',{tool:'dev-tools'})}catch(e){}" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;margin:14px 0;border-color:rgba(99,102,241,.4)">
+    <div style="font-size:22px">🤖</div>
+    <div style="flex:1;min-width:0">
+      <b style="display:block;font-size:13.5px;color:#e8e8f0">Free: a complete multi-agent AI workflow</b>
+      <span style="display:block;font-size:11.5px;color:#9a9ac0">A validated DAG + ready-to-run Python project — free sample.</span>
+      <b style="display:block;font-size:13.5px;color:#e8e8f0;margin-top:6px" lang="zh-Hant">免費領取：完整多代理 AI 工作流範例</b>
+      <span style="display:block;font-size:11.5px;color:#9a9ac0" lang="zh-Hant">已驗證的 DAG + 可直接執行的 Python 專案，免費試用版。</span>
+    </div>
+    <div style="flex-shrink:0;padding:8px 14px;border-radius:8px;background:#16a34a;color:#fff;font-weight:600;font-size:13px;text-align:center">Free<br>免費</div>
+  </a>
   <ins class="adsbygoogle ad-slot" style="display:block" data-ad-client="ca-pub-7217603696203672" data-ad-format="auto" data-full-width-responsive="true"></ins>
   <div class="seclabel">FAQ · 常見問題</div>
   <details><summary data-i18n="q1">Is my data uploaded? / 資料會上傳嗎？</summary><p data-i18n="a1">No — everything runs locally in your browser. Great for sensitive tokens/secrets. 不會，全部在瀏覽器本機執行，敏感 token 也安心。</p></details>
