@@ -210,6 +210,7 @@ def build_landing() -> str:
 </section>
 <p class="hub-note">Tools formerly published as individual sites (calculators, qr-code-generator, etc.) now live here under one roof. <a href="https://slashmantools.us/" style="color:#6868a0">slashmantools.us</a> &middot; <a href="/sitemap.xml" style="color:#6868a0">Sitemap</a></p>
 {footer}
+<script src="https://slashmantools.us/shared/google-signup.js" defer></script>
 </body>
 </html>""".format(
         base=BASE, head_extra=HEAD_EXTRA, header=HEADER_HTML, footer=FOOTER_HTML,
