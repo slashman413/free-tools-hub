@@ -57,6 +57,7 @@ HEADER_HTML = """
 FOOTER_HTML = """
 <footer class="hub-footer" style="max-width:960px;margin:30px auto 0;padding:18px 16px 8px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:11.5px;color:#6a6a90;line-height:2">
   <p><a href="{base}/" style="color:#8a8ab0;text-decoration:none">&#128736;&#65039; Free Tools Hub</a> &middot; free online tools &mdash; calculators, developer tools, AI tools &amp; more. Everything runs 100% in your browser; nothing is uploaded.</p>
+  <p><a href="https://ko-fi.com/slashman" target="_blank" rel="noopener" style="color:#8a8ab0;text-decoration:none">Support me on Ko-fi</a> &middot; <a href="https://slashman413.gumroad.com/" target="_blank" rel="noopener" style="color:#8a8ab0;text-decoration:none">Browse my tools on Gumroad</a> &middot; <a href="https://slashmantools.us/" target="_blank" rel="noopener" style="color:#8a8ab0;text-decoration:none">Subscribe to the newsletter</a></p>
   <p><a href="https://slashmantools.us/privacy/" style="color:#6a6a90;text-decoration:none">Privacy</a> &middot; <a href="https://slashmantools.us/terms/" style="color:#6a6a90;text-decoration:none">Terms</a> &middot; <a href="https://slashmantools.us/contact/" style="color:#6a6a90;text-decoration:none">Contact</a> &middot; &copy; 2026 SlashMan Tools</p>
 </footer>
 """.format(base=BASE)
